@@ -1,0 +1,79 @@
+/* pages/home/home.wxss */
+
+.page {
+  position: absolute;
+  text-align: center;
+  height: 100%;
+  width: 100%;
+  background-color: #c4e2d8;
+}
+
+.section {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
+.flex-item {
+  margin-left: -50px;
+  text-align: center;
+}
+.flex-item2 {
+  margin-left: 40px;margin-right: 40px;
+  text-align: center;
+}
+.cat {
+  width: 200px;
+  height: 200px;
+  margin-top: 100px;
+}
+
+.chongwuimg {
+  margin-top: 50px;
+  margin-bottom: 20px;
+  margin-left: 50px;
+  margin-right: 50px;
+  width: 50px;
+  height: 50px;
+}
+
+.icon {
+  color: green;
+  margin-top: 5px;
+  margin-left: 0px;
+  left: 50px;
+  right: 50px;
+  width: 25px;
+  height: 25px;
+}
+
+.number {
+  color: green;
+  margin-left: 10px;
+}
+
+.name {
+  margin-left: -90px;
+  color: green;
+}
+.shopcharmodal {
+  display: block;
+  position: fixed;
+  max-height: 300px;
+  z-index: 1900000;
+  /* opacity: 0.5; */
+  left: 0px;
+  right: 0px;
+  overflow-y: auto;
+  margin-bottom: -10px;
+  bottom: 0.52rem;
+  background-color: #d4e3d9;
+}
+.btn-close{
+  border: none;
+  background-color: #d4e3d9;
+}
+.weui-cells_after-title{
+  color: green;
+  background-color: #e4e3d9;
+}

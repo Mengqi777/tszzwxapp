@@ -1,0 +1,13 @@
+<!--pages/luckycat/luckycat.wxml-->
+<view class='main'>
+  <view class='container'>
+    <view class='info'>在喵爪上画符祈求小鱼干</view>
+  
+      <canvas id="canvas" class='canvas' canvas-id="canvas" disable-scroll="true" bindtouchstart="canvasStart" bindtouchmove="canvasMove" bindtouchend="canvasEnd" touchcancel="canvasEnd" binderror="canvasIdErrorCallback"></canvas>
+
+    <view class='canvas-tools'>
+
+     小鱼干{{fishnumber}}--  {{drawinfo}} --幸运星{{starnumber}}
+    </view>
+  </view>
+</view>

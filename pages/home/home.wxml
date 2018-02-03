@@ -1,0 +1,68 @@
+<!--pages/home/home.wxml-->
+<view class="page">
+  <view class="section">
+    <view class="flex-item2 icon">
+      <image class='icon' src='/images/iconfish.png' /> {{fishnumber}}
+    </view>
+    <view class="flex-item2 icon">
+      <image class='icon' src='/images/iconstar.png'></image>
+      {{starnumber}}
+    </view>
+    <view class="flex-item2 icon">
+      <image class='icon' src='/images/iconfood.png'></image>
+      {{foodnumber}}
+    </view>
+  </view>
+  <image class='cat' src='/images/cat.png' bindtap='touchcat'></image>
+  <view class="section">
+    <view class="flex-item">
+      <image class='chongwuimg' bindtap='showpxop' src='/images/px.png'></image>
+      <label class='name'>{{pxname}}</label>
+    </view>
+    <view class="flex-item">
+      <image class='chongwuimg' src='/images/dog.png' bindtap='showdoginfo'></image>
+      <label class='name'>{{dogname}}</label>
+    </view>
+  </view>
+</view>
+<view class='shopcharmodal' hidden='{{operationHidden}}'>
+  <view class="shopcar">
+    <view class="weui-cell">
+      <view class="weui-cell__hd">
+        <span style="color:#008000">{{pxname}}</span>
+      </view>
+      <view class="weui-cell__bd" style="color:#008000;">
+        <span style="color:#008000"> {{status}}，{{userInfo.nickName}}下命令吧</span>
+      </view>
+      <view class="weui-cell__ft">
+        <span class='btn-close' bindtap='closeOp'>X</span>
+      </view>
+    </view>
+    <view class="weui-cells__title"></view>
+    <view class="weui-cells weui-cells_after-title">
+      <navigator url="" hidden='{{statusCode!==0}}' class="weui-cell weui-cell_access" hover-class="weui-cell_active">
+        <view class="weui-cell__hd">
+          <image src="/images/travel.png" style="margin-right: 5px;vertical-align: middle;width:20px; height: 20px;"></image>
+        </view>
+        <view class="weui-cell__bd">去玩吧</view>
+        <view class="weui-cell__ft weui-cell__ft_in-access"></view>
+      </navigator>
+      <navigator url="" hidden='{{statusCode!==1}}' class="weui-cell weui-cell_access" hover-class="weui-cell_active">
+        <view class="weui-cell__hd">
+          <image src="/images/travel.png" style="margin-right: 5px;vertical-align: middle;width:20px; height: 20px;"></image>
+        </view>
+        <view class="weui-cell__bd">召回</view>
+        <view class="weui-cell__ft weui-cell__ft_in-access"></view>
+      </navigator>
+      <navigator url="" hidden='{{statusCode!==1||statusCode!==2}}' class="weui-cell weui-cell_access" hover-class="weui-cell_active">
+        <view class="weui-cell__hd">
+          <image src="/images/travel.png" style="margin-right: 5px;vertical-align: middle;width:20px; height: 20px;"></image>
+        </view>
+        <view class="weui-cell__bd">查看</view>
+        <view class="weui-cell__ft weui-cell__ft_in-access"></view>
+      </navigator>
+
+
+    </view>
+  </view>
+</view>
