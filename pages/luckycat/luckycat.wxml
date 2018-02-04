@@ -1,5 +1,5 @@
 <!--pages/luckycat/luckycat.wxml-->
-<view class='main'>
+<view class='main' style="background-image: url({{bgi}})">
   <view class='container'>
     <view class='info'>在喵爪上画符祈求小鱼干</view>
   

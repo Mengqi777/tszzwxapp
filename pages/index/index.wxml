@@ -1,13 +1,131 @@
-<!--index.wxml-->
-<!-- <view class="container">
-  <view class="userinfo">
-    <button wx:if="{{!hasUserInfo && canIUse}}" open-type="getUserInfo" bindgetuserinfo="getUserInfo"> 获取头像昵称 </button>
-    <block wx:else>
-      <image bindtap="bindViewTap" class="userinfo-avatar" src="{{userInfo.avatarUrl}}" background-size="cover"></image>
-      <text class="userinfo-nickname">{{userInfo.nickName}}</text>
-    </block>
+<view class="main" style="background-image: url({{bgi}})">
+  <view class='page'>
+    <view class="page__hd">
+      <view class="page__title" style='text-align:center;color:green'>故事背景</view>
+    </view>
+    <view class="page__bd" bindtap='changeIndex'>
+      <view class="weui-article">
+
+        <view class="weui-article__section">
+
+          <view class="weui-article__section" hidden='{{index!=0}}'>
+
+            <view class="weui-article__p" style="color:#76A078">
+              2118年，喵星人攻占地球，在强大得喵爪面前，人类--一败涂地。从此，喵星人统治人类，他们极其残忍，把人类赶出城市，每天只给小鱼干维持生命，人类所剩无几。
+            </view>
+          </view>
+          <view hidden='{{index!=1}}'>
+            <view class="weui-article__section">
+
+              <view class="weui-article__p" style="color:#76A078">
+                更加暴虐的是，他们对汪星人做了变蠢变蠢催眠，让他们变成这样
+              </view>
+            </view>
+            <view class="weui-article__p" style='text-align:center'>
+              <image class="weui-article__img" src="/images/dog1.png" mode="aspectFit" style="height: 180px" />
+              <image class="weui-article__img" src="/images/dog2.jpg" mode="aspectFit" style="height: 180px" />
+            </view>
+          </view>
+          <view hidden='{{index!=2}}'>
+            <view class="weui-article__section">
+
+              <view class="weui-article__p" style="color:#76A078">
+                变成这样(～￣(OO)￣)ブ
+              </view>
+            </view>
+            <view class="weui-article__p" style='text-align:center'>
+              <image class="weui-article__img" src="/images/dog4.jpg" mode="aspectFit" style="height: 180px" />
+              <image class="weui-article__img" src="/images/dog6.jpg" mode="aspectFit" style="height: 180px" />
+            </view>
+          </view>
+          <view hidden='{{index!=3}}'>
+            <view class="weui-article__section">
+
+              <view class="weui-article__p" style="color:#76A078">
+                甚至变成这样ε=( o｀ω′)ノ
+              </view>
+            </view>
+            <view class="weui-article__p" style='text-align:center'>
+              <image class="weui-article__img" src="/images/dog3.jpg" mode="aspectFit" style="height: 180px" />
+              <image class="weui-article__img" src="/images/dog5.jpg" mode="aspectFit" style="height: 180px" />
+            </view>
+          </view>
+          <view hidden='{{index!=4}}'>
+            <view class="weui-article__section">
+
+              <view class="weui-article__p" style="color:#76A078">
+                而你因为曾在100年前向血月许下愿望多活100岁，因此见证了这一切，为拯救人类，你养了两只能穿越时空回到过去的宠物：一只蟹、一条狗。
+              </view>
+            </view>
+            <view class="weui-article__p" style='text-align:center'>
+              <image id='px' class="weui-article__img" src="/images/px.png" mode="aspectFit" style="height: 150px" />
+              <image class="weui-article__img" src="/images/dog.png" mode="aspectFit" style="height: 150px" />
+            </view>
+             <view class="weui-article__section">
+
+              <view class="weui-article__p" style="color:#76A078">
+                你想让他们回到过去像人类传达信息：不要养猫！！！
+              </view>
+            </view>
+            <view class="weui-article__section">
+
+              <view class="weui-article__p" style="color:#76A078">
+                但是他们能懂你的意思吗？还是带来其它信息？？？
+              </view>
+            </view>
+          </view>
+        </view>
+      </view>
+    </view>
+
+
+
+
+
+<view class="page__bd">
+      <view class="weui-article">
+
+        <view class="weui-article__section">
+
+          <view class="weui-article__section" hidden='{{index<5}}'>
+
+            <view class="weui-article__p" style="color:#76A078">
+              现在，点击宠物，给他们起个炫酷的名字吧
+            </view>
+             <view class="weui-article__p" style='text-align:center'>
+              <image id='px' bindtap='namepx' class="weui-article__img" src="/images/px.png" mode="aspectFit" style="height: 150px" />
+              <view>{{pxname}}</view>
+              <image class="weui-article__img" bindtap='namedog' src="/images/dog.png" mode="aspectFit" style="height: 150px" /> <view>{{dogname}}</view>
+            </view>
+             <button hidden='{{pxname=="" || dogname==""}}' bindtap='startgame'>开始游戏</button>
+          </view>
+         
+        </view>
+      </view>
+    </view>
+
   </view>
-  <view class="usermotto">
-    <text class="user-motto">{{motto}}</text>
-  </view>
-</view> -->
+</view>
+
+<modal hidden="{{hiddenpx}}" title="螃蟹" confirm-text="确定"  bindcancel="cancel" bindconfirm="confirmpx" no-cancel="true">
+      <view class="weui-cell weui-cell_input weui-cell_vcode">
+        <view class="weui-cell__hd">
+          <view class="weui-label">姓名</view>
+        </view>
+        <view class="weui-cell__bd">
+          <input class="weui-input" type='text' bindinput='bindpxname'  value='{{pxname}}' />
+        </view>
+      </view>
+</modal>
+
+
+<modal hidden="{{hiddendog}}" title="狗狗" confirm-text="确定"  bindcancel="cancel" bindconfirm="confirmdog" no-cancel="true">
+      <view class="weui-cell weui-cell_input weui-cell_vcode">
+        <view class="weui-cell__hd">
+          <view class="weui-label">姓名</view>
+        </view>
+        <view class="weui-cell__bd">
+          <input class="weui-input" type='text' bindinput='binddogname'  value='{{dogname}}' />
+        </view>
+      </view>
+</modal>

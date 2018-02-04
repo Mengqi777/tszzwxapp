@@ -6,6 +6,7 @@ var arry = [];
 var arrz = [];
 var canvasw = 0;
 var canvash = 0;
+var base64 = require("../../utils/base64");
 //获取系统信息  
 wx.getSystemInfo({
   success: function (res) {
@@ -19,6 +20,7 @@ Page({
    * 页面的初始数据
    */
   data: {
+    bgi:"",
     drawinfo:"",
     fishnumber: wx.getStorageSync('fishnumber')||0,
     starnumber: wx.getStorageSync('starnumber') || 0
@@ -97,6 +99,9 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    this.setData({
+      bgi: base64.luckycatbgi
+    })
     // 使用 wx.createContext 获取绘图上下文 context  
     context = wx.createCanvasContext('canvas');
     context.beginPath()

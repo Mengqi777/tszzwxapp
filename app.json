@@ -1,14 +1,17 @@
 {
   "pages": [
+    "pages/notfund/notfund",
     "pages/home/home",
     "pages/index/index",
     "pages/logs/logs",
-    "pages/luckycat/luckycat"
+    "pages/luckycat/luckycat",
+    "pages/travel/travel"
+   
   ],
   "window": {
     "backgroundTextStyle": "light",
     "navigationBarBackgroundColor": "#C4E2D8",
-    "navigationBarTitleText": "WeChat",
-    "navigationBarTextStyle": "black"
+    "navigationBarTitleText": "余",
+    "navigationBarTextStyle": "green"
   }
 }

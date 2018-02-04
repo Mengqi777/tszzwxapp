@@ -1,54 +1,119 @@
 //index.js
 //获取应用实例
 const app = getApp()
-
+// var server = "https://api.mengqipoet.cn"
+var server = "http://localhost:8080"
+var base64 = require("../../utils/base64");
 Page({
   data: {
-    motto: 'Hello World',
-    userInfo: {},
-    hasUserInfo: false,
-    canIUse: wx.canIUse('button.open-type.getUserInfo')
+    bgi: "",
+    pxname: "",
+    pxicon: "",
+    dogicon: "",
+    dogname: "",
+    index: 0,
+    hiddendog: true,
+    hiddenpx: true
   },
-  //事件处理函数
-  bindViewTap: function() {
-    wx.navigateTo({
-      url: '../logs/logs'
+  confirmdog: function () {
+    this.setData({
+      hiddendog: true
     })
   },
-  onLoad: function () {
-    if (app.globalData.userInfo) {
-      this.setData({
-        userInfo: app.globalData.userInfo,
-        hasUserInfo: true
+  confirmpx: function (e) {
+    this.setData({
+        hiddenpx: true
       })
-    } else if (this.data.canIUse){
-      // 由于 getUserInfo 是网络请求，可能会在 Page.onLoad 之后才返回
-      // 所以此处加入 callback 以防止这种情况
-      app.userInfoReadyCallback = res => {
-        this.setData({
-          userInfo: res.userInfo,
-          hasUserInfo: true
+  },
+  binddogname: function (e) {
+    this.setData({
+      dogname: e.detail.value
+    })
+  },
+  bindpxname: function (e) {
+    this.setData({
+      pxname: e.detail.value
+    })
+  },
+  namepx: function () {
+    this.setData({
+        hiddenpx: false
+      })
+  },
+  namedog: function () {
+    this.setData({
+      hiddendog: false
+    })
+  },
+  startgame:function(){
+    var dog={}
+    var px={}
+    var that=this;
+    var customer = wx.getStorageSync('customer')
+    dog.name=that.data.dogname;
+    px.name=that.data.pxname;
+    px.userId = customer.id;
+    dog.userId = customer.id;
+    px.type=0;
+    dog.type=1;
+    var petIdList=[];
+    wx.request({
+      method:"POST",
+      url: server +"/pet/add",
+      data: dog, 
+      header: {
+        'content-type': 'application/json'
+      },
+      success: function (res) {
+        console.log(res.data);
+        petIdList.push(res.data.id)
+        wx.request({
+          method: "POST",
+          url: server + "/pet/add",
+          data: px,
+          header: {
+            'content-type': 'application/json'
+          },
+          success: function (res) {
+            console.log(res.data);
+            petIdList.push(res.data.id)
+            customer.petIdList = petIdList;
+            console.log(customer)
+            wx.request({
+              method: "GET",
+              url: server + "/customer/get",
+              data: {id:customer.id},
+              header: {
+                'content-type': 'application/json'
+              },
+              success: function (res) {
+                console.log(res.data);
+                wx.setStorageSync('customer', res.data)
+                wx.reLaunch({
+                  url: '/pages/home/home',
+                })
+              }
+            })
+          }
         })
       }
-    } else {
-      // 在没有 open-type=getUserInfo 版本的兼容处理
-      wx.getUserInfo({
-        success: res => {
-          app.globalData.userInfo = res.userInfo
-          this.setData({
-            userInfo: res.userInfo,
-            hasUserInfo: true
-          })
-        }
-      })
-    }
+    })
+    
+    
   },
-  getUserInfo: function(e) {
-    console.log(e)
-    app.globalData.userInfo = e.detail.userInfo
+  onLoad: function () {
     this.setData({
-      userInfo: e.detail.userInfo,
-      hasUserInfo: true
+      bgi: base64.luckycatbgi
+    })
+  },
+  changeIndex: function () {
+    this.setData({
+      index: this.data.index + 1
+    })
+  },
+  onShow: function () {
+    this.setData({
+      index: 0
     })
   }
 })
