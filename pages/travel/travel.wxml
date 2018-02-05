@@ -1,2 +1,25 @@
 <!--pages/travel/travel.wxml-->
-<text>pages/travel/travel.wxml</text>
+<view class="main" style="background-image: url({{cat}})">
+  <movable-area style="height: 300px;width: 100%; background-image:url({{time}});background-position:center;">
+    <movable-view style="height: 50px; width: 50px;" x="{{x}}" y="{{y}}" direction="all">
+      <image style="height: 50px; width: 50px;" src='{{px}}'></image>
+    </movable-view>
+  </movable-area>
+<view style='text-align:right'>
+<image style='width:50px;height:50px;' src='/images/back.png' bindtap='backhome'></image>
+</view>
+  <view class='page'>
+    <view class="page__hd">
+      <view class="page__title" style='text-align:center;color:green'>旅行日志</view>
+    </view>
+    <view class="page__bd">
+      <view class="weui-article">
+        <view class="weui-article__section">
+          <view class="weui-article__p" style="color:#76A078">
+            2118年，喵星人攻占地球，在强大得喵爪面前，人类--一败涂地。从此，喵星人统治人类，他们极其残忍，把人类赶出城市，每天只给小鱼干维持生命，人类所剩无几。
+          </view>
+        </view>
+      </view>
+    </view>
+  </view>
+</view>

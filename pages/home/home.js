@@ -74,7 +74,9 @@ Page({
 
   },
   viewtravel:function(){
-  
+    wx.reLaunch({
+      url: '/pages/travel/travel?id=' + wx.getStorageSync('px').travelingId,
+    })
   },
   showdoginfo: function () {
     wx.showToast({
@@ -100,28 +102,43 @@ Page({
   onLoad: function (options) {
     var that = this;
     var customer = wx.getStorageSync('customer');
-    var pets = customer.pets;
-    for (var i = 0; i < pets.length; i++) {
-      if (pets[i].type == 0) {
-        wx.setStorageSync('px', pets[i])
-        var status = "";
-        if (pets[i].statusCode == 0) { status = "在家中" }
-        if (pets[i].statusCode == 1) { status = "在过去" }
-        if (pets[i].statusCode == 2) { status = "在路上" }
-        that.setData({
-          statusCode: pets[i].statusCode,
-          status: status
-        })
-      } else {
-        wx.setStorageSync('dog', pets[i])
+    wx.request({
+      method: "GET",
+      url: server + "/customer/get",
+      data: { id: customer.id },
+      header: {
+        'content-type': 'application/json'
+      },
+      success: function (res) {
+        console.log(res.data);
+        wx.setStorageSync('customer', res.data)
+        customer = wx.getStorageSync('customer');
+        var pets = customer.pets;
+        for (var i = 0; i < pets.length; i++) {
+          if (pets[i].type == 0) {
+            wx.setStorageSync('px', pets[i])
+            var status = "";
+            if (pets[i].statusCode == 0) { status = "在家中" }
+            if (pets[i].statusCode == 1) { status = "在过去" }
+            if (pets[i].statusCode == 2) { status = "在路上" }
+            that.setData({
+              statusCode: pets[i].statusCode,
+              status: status
+            })
+          } else {
+            wx.setStorageSync('dog', pets[i])
+          }
+          that.setData({
+            userInfo: customer.userInfo,
+            fishnumber: wx.getStorageSync('fishnumber') || 0,
+            starnumber: wx.getStorageSync('starnumber') || 0,
+            foodnumber: wx.getStorageSync('foodnumber') || 0,
+          })
+        }
       }
-    }
-    that.setData({
-      userInfo: customer.userInfo,
-      fishnumber: wx.getStorageSync('fishnumber') || 0,
-      starnumber: wx.getStorageSync('starnumber') || 0,
-      foodnumber: wx.getStorageSync('foodnumber') || 0,
     })
+    
+    
   },
 
   /**

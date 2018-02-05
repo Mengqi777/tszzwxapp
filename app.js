@@ -36,7 +36,15 @@ App({
                       success: function (res) {
                         var customer=res.data.customer;
                         wx.setStorageSync('customer', customer);
-                        
+                        var pets=customer.pets||[];
+                        for(var i=0;i<pets.length;i++){
+                          if(pets[i].type==0){
+                            wx.setStorageSync('px', pets[i])
+                          }
+                          if(pets[i].type==1){
+                            wx.setStorageSync('dog', pets[i])
+                          }
+                        }
                         if (customer.pets == null || customer.pets.length==0){
                           wx.reLaunch({
                             url: '/pages/index/index',
