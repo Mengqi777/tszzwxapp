@@ -1,8 +1,8 @@
 //index.js
 //获取应用实例
 const app = getApp()
-// var server = "https://api.mengqipoet.cn"
-var server = "http://localhost:8080"
+var server = "https://api.mengqipoet.cn"
+// var server = "http://localhost:8080"
 var base64 = require("../../utils/base64");
 Page({
   data: {

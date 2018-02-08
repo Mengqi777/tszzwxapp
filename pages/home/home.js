@@ -1,6 +1,6 @@
 // pages/home/home.js
-// var server = "https://api.mengqipoet.cn"
-var server = "http://localhost:8080"
+var server = "https://api.mengqipoet.cn"
+// var server = "http://localhost:8080"
 Page({
 
   /**
@@ -24,6 +24,16 @@ Page({
   touchcat: function () {
     wx.navigateTo({
       url: '/pages/luckycat/luckycat',
+    })
+  },
+  viewtlogs:function(){
+    wx.navigateTo({
+      url: '/pages/tlogs/tlogs',
+    })
+  },
+  viewtreasure:function(){
+    wx.navigateTo({
+      url: '/pages/treasure/treasure',
     })
   },
   gobacktravel: function () {

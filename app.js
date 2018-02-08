@@ -1,6 +1,6 @@
 //app.js
-// var server="https://api.mengqipoet.cn"
-var server = "http://localhost:8080"
+var server="https://api.mengqipoet.cn"
+// var server = "http://localhost:8080"
 App({
   onLaunch: function () {
     // 展示本地存储能力

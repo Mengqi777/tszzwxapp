@@ -16,38 +16,59 @@
   <image class='cat' src='/images/cat.png' bindtap='touchcat'></image>
   <view class="section">
     <view class="flex-item">
-      <image class='chongwuimg' bindtap='showpxop' src='/images/px.png'></image>
-      <label class='name'>{{pxname}}</label>
+      <image class='chongwuimg' id='pxi' bindtap='showpxop' src='/images/px.png'></image>
+      <label class='name' for='pxi'>{{pxname}}</label>
     </view>
     <view class="flex-item">
       <image class='chongwuimg' src='/images/dog.png' bindtap='showdoginfo'></image>
       <label class='name'>{{dogname}}</label>
     </view>
   </view>
-</view>
-<view class='shopcharmodal' hidden='{{operationHidden}}'>
-  <view class="shopcar">
-    <view class="weui-cell">
-      <view class="weui-cell__hd">
-        <span style="color:#008000">{{pxname}}</span>
+
+
+
+
+
+  <view class='shopcharmodal' hidden='{{operationHidden}}'>
+    <view class="shopcar">
+      <view class="weui-cell">
+        <view class="weui-cell__hd">
+          <span style="color:#008000">{{pxname}}</span>
+        </view>
+        <view class="weui-cell__bd" style="color:#008000;">
+          <span style="color:#008000"> {{status}}，{{userInfo.nickName}}下命令吧</span>
+        </view>
+        <view class="weui-cell__ft">
+          <span class='btn-close' bindtap='closeOp'>X</span>
+        </view>
       </view>
-      <view class="weui-cell__bd" style="color:#008000;">
-        <span style="color:#008000"> {{status}}，{{userInfo.nickName}}下命令吧</span>
-      </view>
-      <view class="weui-cell__ft">
-        <span class='btn-close' bindtap='closeOp'>X</span>
-      </view>
-    </view>
-    <view class="weui-cells__title"></view>
-    <view class="weui-cells weui-cells_after-title">
-      <view hidden='{{statusCode!==0}}' bindtap='gobacktravel' class="weui-cell weui-cell_access" hover-class="weui-cell_active">
+      <view class="weui-cells__title"></view>
+      <view class="weui-cells weui-cells_after-title">
+
+        <view bindtap='viewtreasure' class="weui-cell weui-cell_access" hover-class="weui-cell_active">
+          <view class="weui-cell__hd">
+            <image src="/images/treasure.png" style="margin-right: 5px;vertical-align: middle;width:20px; height: 20px;"></image>
+          </view>
+          <view class="weui-cell__bd">藏宝室</view>
+          <view class="weui-cell__ft weui-cell__ft_in-access"></view>
+        </view>
+
+         <view bindtap='viewtlogs' class="weui-cell weui-cell_access" hover-class="weui-cell_active">
+          <view class="weui-cell__hd">
+            <image src="/images/tmap.png" style="margin-right: 5px;vertical-align: middle;width:20px; height: 20px;"></image>
+          </view>
+          <view class="weui-cell__bd">旅行日志</view>
+          <view class="weui-cell__ft weui-cell__ft_in-access"></view>
+        </view> 
+
+        <view hidden='{{statusCode!==0}}' bindtap='gobacktravel' class="weui-cell weui-cell_access" hover-class="weui-cell_active">
         <view class="weui-cell__hd">
           <image src="/images/travel.png" style="margin-right: 5px;vertical-align: middle;width:20px; height: 20px;"></image>
         </view>
         <view class="weui-cell__bd">回到过去吧！{{pxname}}</view>
         <view class="weui-cell__ft weui-cell__ft_in-access"></view>
       </view>
-      
+
       <view hidden='{{statusCode==0}}' bindtap='viewtravel' class="weui-cell weui-cell_access" hover-class="weui-cell_active">
         <view class="weui-cell__hd">
           <image src="/images/travel.png" style="margin-right: 5px;vertical-align: middle;width:20px; height: 20px;"></image>
@@ -55,8 +76,10 @@
         <view class="weui-cell__bd">查看</view>
         <view class="weui-cell__ft weui-cell__ft_in-access"></view>
       </view>
+      </view>
 
 
+      
     </view>
   </view>
 </view>

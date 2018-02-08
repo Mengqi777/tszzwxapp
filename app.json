@@ -3,10 +3,10 @@
     "pages/notfund/notfund",
     "pages/home/home",
     "pages/index/index",
-    "pages/logs/logs",
     "pages/luckycat/luckycat",
-    "pages/travel/travel"
-   
+    "pages/tlogs/tlogs",
+    "pages/travel/travel",
+    "pages/treasure/treasure"
   ],
   "window": {
     "backgroundTextStyle": "light",

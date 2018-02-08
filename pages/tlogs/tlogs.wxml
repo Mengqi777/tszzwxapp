@@ -1,0 +1,31 @@
+<!--pages/tlogs/tlogs.wxml-->
+<view class='page'>
+  <view class="page__hd">
+    <view class="page__title" style='text-align:center;color:green'>旅行日志</view>
+  </view>
+
+  <view wx:for="{{tlogs}}" wx:for-item="items">
+    <view class="page__hd">
+      <view class="page__title" style='color:green;margin-left:15px;'>{{items.startTime}}，{{items.petName}}回到过去了！😝</view>
+    </view>
+    <view class="page__bd">
+      <view class="weui-article">
+        <view class="weui-article__section" wx:for='{{items.logs}}' wx:for-item="item">
+          <view class="weui-article__p" style="color:#76A078">
+            {{item}}。❤
+          </view>
+        </view>
+        <view class="weui-article__section" wx:if="{{items.logs.length===0}}">
+          <view class="weui-article__p" style="color:#76A078">
+           啥也没找到。。。😕
+          </view>
+        </view>
+           <view class="page__title" style='color:green;'>{{items.endTime}}，{{items.petName}}回来了。</view>
+      </view>
+    </view>
+  </view>
+ <view class="weui-cell" style='color:green;' bindtap='getmore'>
+   <view class="weui-cell__hd" >查看更多
+          </view>
+          <view class="weui-cell__ft weui-cell__ft_in-access"></view>
+  </view>  </view>

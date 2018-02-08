@@ -1,0 +1,32 @@
+<!--pages/treasure/treasure.wxml-->
+<view class='page'>
+  <view class="page__hd">
+    <view class="page__title" style='text-align:center;color:green'>找回的宝藏</view>
+    <view class="weui-cell sp"></view>
+  </view>
+  <view wx:for='{{shows}}' wx:for-item="items">
+    <view class="page__hd">
+      <view class="page__title" style='text-align:center;color:green;'>{{items.title}}</view>
+    </view>
+    <view class="page__bd">
+      <view class="weui-article">
+        <view class="weui-article__section">
+          <view class="weui-article__p" style='text-align:center'>
+            <view wx:for="{{items.imgurilist}}" wx:for-item="item">
+              <image class="weui-article__img" src="{{item}}" mode="aspectFit" style="height: 80px" />
+            </view>
+          </view>
+          <view class="weui-article__p" style='text-align:center;color:green' wx:for="{{items.textlist}}" wx:for-item="tex">
+            {{tex}}
+          </view>
+        </view>
+      </view>
+    </view>
+    <view class="weui-cell sp"></view>
+  </view>
+
+  <view class="weui-cell" style='color:green;' bindtap='getmore'>
+    <view class="weui-cell__hd">查看更多</view>
+    <view class="weui-cell__ft weui-cell__ft_in-access"></view>
+  </view>
+</view>

@@ -13,7 +13,7 @@ page{
 .page{
   display: block;
   position: fixed;
-  max-height: 300px;
+  max-height: 200px;
   z-index: 1900000;
   /* opacity: 0.5; */
   left: 0px;
