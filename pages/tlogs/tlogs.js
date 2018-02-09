@@ -9,8 +9,26 @@ Page({
   data: {
     tlogs:[],
     pageNum:0,
-  
+    preuri:"",
+    showmodal:true,
+    tex:""
   },
+  hiddenmodal:function(){
+    this.setData({
+      showmodal: true,
+    })
+  },
+  preview:function(e){
+   var findex=e.target.dataset.findex;
+   var sindex = e.target.dataset.sindex;
+   var that=this;
+   that.setData({
+     showmodal: false,
+     preuri: server + that.data.tlogs[findex].treasures[sindex].imgUri,
+     tex: that.data.tlogs[findex].treasures[sindex].typeName
+   })
+  },
+
 
   /**
    * 生命周期函数--监听页面加载

@@ -14,8 +14,27 @@ Page({
     x: 0,
     y: 0,
     travel: {},
-    logs: []
+    logs: [],
+    preuri: "",
+    showmodal: true,
+    tex: ""
   },
+  hiddenmodal: function () {
+    this.setData({
+      showmodal: true,
+    })
+  },
+  preview: function (e) {
+    var index = e.target.dataset.index;
+    
+    var that = this;
+    that.setData({
+      showmodal: false,
+      preuri: server + that.data.travel.treasures[index].imgUri,
+      tex: that.data.travel.treasures[index].typeName
+    })
+  },
+
   backhome: function () {
     wx.reLaunch({
       url: '/pages/home/home',

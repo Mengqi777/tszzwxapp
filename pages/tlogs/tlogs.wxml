@@ -10,22 +10,35 @@
     </view>
     <view class="page__bd">
       <view class="weui-article">
-        <view class="weui-article__section" wx:for='{{items.logs}}' wx:for-item="item">
-          <view class="weui-article__p" style="color:#76A078">
+        <view class="weui-article__section" wx:for='{{items.logs}}' wx:for-item="item" wx:for-index="idx">
+          <view class="weui-article__p" style="color:#76A078" bindtap="preview" data-findex="{{index}}" data-sindex='{{idx}}'>
             {{item}}。❤
           </view>
         </view>
         <view class="weui-article__section" wx:if="{{items.logs.length===0}}">
           <view class="weui-article__p" style="color:#76A078">
-           啥也没找到。。。😕
+            啥也没找到。。。😕
           </view>
         </view>
-           <view class="page__title" style='color:green;'>{{items.endTime}}，{{items.petName}}回来了。</view>
+        <view class="page__title" wx:if="{{items.endTimestamp!==0}}" style='color:green;'>{{items.endTime}}，{{items.petName}}回来了。
+        </view>
+        <view class="weui-cell"></view>
       </view>
     </view>
   </view>
- <view class="weui-cell" style='color:green;' bindtap='getmore'>
-   <view class="weui-cell__hd" >查看更多
-          </view>
-          <view class="weui-cell__ft weui-cell__ft_in-access"></view>
-  </view>  </view>
+  <view class="weui-cell" style='color:green;' bindtap='getmore'>
+    <view class="weui-cell__hd">查看更多</view>
+    <view class="weui-cell__ft weui-cell__ft_in-access"></view>
+  </view>
+
+
+
+</view>
+<view class="modal" hidden='{{showmodal}}' bindtap='hiddenmodal'>
+  <view class="modal-wrapper">
+    <view class="weui-article__p" style='text-align:center;color:green;margin-top:30px;'>
+      {{tex}}
+    </view>
+    <image class="weui-article__img" src="{{preuri}}" mode="aspectFit" style="height: 230px" />
+  </view>
+</view>

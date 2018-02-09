@@ -20,10 +20,20 @@
   <view class="page__bd">
     <view class="weui-article">
       <view class="weui-article__section" wx:for='{{logs}}'>
-        <view class="weui-article__p" style="color:#76A078">
-          {{item}}
+        <view class="weui-article__p" style="color:#76A078" bindtap="preview" data-index="{{index}}">
+          {{item}}❤
         </view>
       </view>
     </view>
+  </view>
+</view>
+
+
+<view class="modal" hidden='{{showmodal}}' bindtap='hiddenmodal'>
+  <view class="modal-wrapper">
+    <view class="weui-article__p" style='text-align:center;color:green;margin-top:30px;'>
+      {{tex}}
+    </view>
+    <image class="weui-article__img" src="{{preuri}}" mode="aspectFit" style="height: 230px" />
   </view>
 </view>
