@@ -11,7 +11,7 @@
     <view class="page__bd">
       <view class="weui-article">
         <view class="weui-article__section" wx:for='{{items.logs}}' wx:for-item="item" wx:for-index="idx">
-          <view class="weui-article__p" style="color:#76A078" bindtap="preview" data-findex="{{index}}" data-sindex='{{idx}}'>
+          <view class="weui-article__p" style="color:#76A078;text-decoration: underline;" bindtap="preview" data-findex="{{index}}" data-sindex='{{idx}}'>
             {{item}}。❤
           </view>
         </view>

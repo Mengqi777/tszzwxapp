@@ -1,6 +1,7 @@
 // pages/treasure/treasure.js
 var server = "https://api.mengqipoet.cn"
 // var server = "http://localhost:8080"
+const appIns=getApp()
 
 Page({
 
@@ -11,13 +12,38 @@ Page({
     titles: [],
     temps: [],
     shows: [],
-    treasures: []
+    treasures: [],
+    
+  },
+  playaudio:function(e){
+
+    var innerac = appIns.globalData.innerac;
+    innerac.pause();
+
+    if(this.audioCtx){
+      if (this.audioCtx.audioId === e.target.dataset.aid){
+      this.audioCtx.play();
+      return;
+      }else{
+        this.audioCtx.setSrc(e.target.dataset.aid);
+      }
+    }
+    this.audioCtx = wx.createAudioContext('myaudio');
+    this.audioCtx.setSrc(e.target.dataset.aid)
+    this.audioCtx.play()
+   
+  },
+  pauseaudio:function(e){
+    this.audioCtx.pause();
+    var innerac = appIns.globalData.innerac;
+    innerac.play();
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    
     var treasures = wx.getStorageSync('customer').treasures || [];
     var temps = [];
     for (var i = 0; i < 10; i++) {
@@ -31,13 +57,13 @@ Page({
     var sortedbytitle = that.sortbytitle(titles, temps);
     console.log(sortedbytitle);
     var sortedlist = that.sortbysequence(sortedbytitle);
-    // console.log(sortedlist);
+    console.log(sortedlist);
     that.setData({
       treasures: treasures,
       temps: temps,
       shows: sortedlist
     })
-    console.log(temps)
+  
   },
   getmore: function () {
     var that = this;
@@ -95,13 +121,19 @@ Page({
         title: "",
         textlist: [],
         imgurilist:[],
-        texts:""
+        texts:"",
+        audioUri:"",
+        videoUri:"",
+        typeCode:-1
       }
       treasure.title = titles[i];
       for (var j = 0; j < temps.length; j++) {
         if (temps[j].title === titles[i]) {
           treasure.textlist.push(temps[j].text);
           treasure.imgurilist.push(server + temps[j].imgUri);
+          treasure.audioUri = server+temps[j].audioUri;
+          treasure.videoUri = server+ temps[j].videoUri;
+          treasure.typeCode = temps[j].type;
         }
       }
       sortedbytitle.push(treasure);
@@ -120,7 +152,7 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-
+    
   },
 
   /**

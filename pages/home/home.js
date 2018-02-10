@@ -1,6 +1,7 @@
 // pages/home/home.js
 var server = "https://api.mengqipoet.cn"
 // var server = "http://localhost:8080"
+const appIns=getApp()
 Page({
 
   /**
@@ -20,6 +21,7 @@ Page({
     status: "在家中",
     statusCode: 0,
     selected:{}
+
   },
   touchcat: function () {
     wx.navigateTo({
@@ -111,6 +113,8 @@ Page({
    */
   onLoad: function (options) {
     var that = this;
+
+
     var customer = wx.getStorageSync('customer');
     wx.request({
       method: "GET",
@@ -155,7 +159,7 @@ Page({
    * 生命周期函数--监听页面初次渲染完成
    */
   onReady: function () {
-
+ 
   },
 
   /**
@@ -163,6 +167,8 @@ Page({
    */
   onShow: function () {
     var that = this;
+    var innerac = appIns.globalData.innerac;
+    innerac.play();
     var pets = wx.getStorageSync('customer').pets || [];
     for (var i = 0; i < pets.length; i++) {
       if (pets[i].type == 0) {
@@ -189,7 +195,7 @@ Page({
    * 生命周期函数--监听页面隐藏
    */
   onHide: function () {
-
+  
   },
 
   /**

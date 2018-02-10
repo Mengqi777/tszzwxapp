@@ -15,6 +15,12 @@
             <view wx:for="{{items.imgurilist}}" wx:for-item="item">
               <image class="weui-article__img" src="{{item}}" mode="aspectFit" style="height: 80px" />
             </view>
+            <view wx:if="{{items.typeCode === 9 }}">
+              <view src='{{items.audioUri}}' id='{{items.audioUri}}'>
+                <image class="weui-article__img" src="/images/play.png" bindtap='playaudio' data-aid='{{items.audioUri}}' mode="aspectFit" style="height: 30px;width:30px;" />　　　　
+                <image class="weui-article__img" src="/images/pause.png" bindtap='pauseaudio' data-aid='{{items.audioUri}}' mode="aspectFit" style="height: 30px;width:30px;" />
+              </view>
+            </view>
           </view>
           <view class="weui-article__p" style='text-align:center;color:green' wx:for="{{items.textlist}}" wx:for-item="tex">
             {{tex}}
@@ -29,4 +35,5 @@
     <view class="weui-cell__hd">查看更多</view>
     <view class="weui-cell__ft weui-cell__ft_in-access"></view>
   </view>
+  <audio src='' id='myaudio'></audio>
 </view>

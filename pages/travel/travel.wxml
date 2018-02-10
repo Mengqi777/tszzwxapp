@@ -1,5 +1,5 @@
 <!--pages/travel/travel.wxml-->
-<view class="main" style="background-image: url({{cat}})">
+<view class="main" >
   <movable-area style="height: 300px;width: 100%; background-image:url({{time}});background-position:center;">
     <movable-view style="height: 50px; width: 50px;" x="{{x}}" y="{{y}}" direction="all">
       <image style="height: 50px; width: 50px;" src='{{px}}'></image>
@@ -20,7 +20,7 @@
   <view class="page__bd">
     <view class="weui-article">
       <view class="weui-article__section" wx:for='{{logs}}'>
-        <view class="weui-article__p" style="color:#76A078" bindtap="preview" data-index="{{index}}">
+        <view class="weui-article__p" style="color:#76A078;text-decoration: underline;" bindtap="preview" data-index="{{index}}">
           {{item}}❤
         </view>
       </view>

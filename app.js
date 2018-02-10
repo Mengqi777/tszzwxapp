@@ -1,13 +1,21 @@
 //app.js
 var server="https://api.mengqipoet.cn"
 // var server = "http://localhost:8080"
+// const innerAudioContext = wx.createInnerAudioContext()
+
 App({
   onLaunch: function () {
     // 展示本地存储能力
     var logs = wx.getStorageSync('logs') || []
     logs.unshift(Date.now())
     wx.setStorageSync('logs', logs)
-
+    
+    var innerac = this.globalData.innerac;
+    innerac = wx.createInnerAudioContext();
+    innerac.loop=true;
+    innerac.src="/music/ROS.mp3";
+    innerac.play();
+    this.globalData.innerac=innerac;
     // 登录
     wx.login({
       success: res => {
@@ -34,6 +42,9 @@ App({
                         'content-type': 'application/x-www-form-urlencoded'
                       },
                       success: function (res) {
+                        
+                        
+
                         var customer=res.data.customer;
                         wx.setStorageSync('customer', customer);
                         var pets=customer.pets||[];
@@ -75,6 +86,14 @@ App({
     
   },
   globalData: {
-    userInfo: null
+    userInfo: null,
+    innerac:null,
+    info:"123"
+  },
+  playinnerac:function(){
+    this.globalData.innerac.play()
+  },
+  pauseinnerac:function(){
+    this.globalData.innerac.pause()
   }
 })
