@@ -1,7 +1,7 @@
 <!--pages/treasure/treasure.wxml-->
 <view class='page'>
   <view class="page__hd">
-    <view class="page__title" style='text-align:center;color:green'>找回的宝藏</view>
+    <view class="page__title" style='text-align:center;color:green'>找回的宝藏({{treasures.length}}/99)</view>
     <view class="weui-cell sp"></view>
   </view>
   <view wx:for='{{shows}}' wx:for-item="items">
