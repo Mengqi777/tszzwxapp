@@ -57,6 +57,7 @@ Page({
     var sortedbytitle = that.sortbytitle(titles, temps);
     console.log(sortedbytitle);
     var sortedlist = that.sortbysequence(sortedbytitle);
+    sortedlist = that.sorttext(sortedlist)
     console.log(sortedlist);
     that.setData({
       treasures: treasures,
@@ -76,7 +77,7 @@ Page({
     var titles = that.getTitles(temps);
     var sortedbytitle = that.sortbytitle(titles, temps);
     var sortedlist = that.sortbysequence(sortedbytitle);
-    // console.log(sortedlist);
+    sortedlist = that.sorttext(sortedlist)
     that.setData({
       temps: temps,
       shows: sortedlist
@@ -109,6 +110,20 @@ Page({
     // console.log(arr)
     for (var i = 0; i < arr.length; i++) {
       arr[i].imgurilist.sort()
+    }
+    return arr;
+  },
+
+  sorttext:function(arr){
+    for (var i = 0; i < arr.length; i++) {
+      arr[i].textlist.sort()
+    }
+    for (var i = 0; i < arr.length; i++) {
+      for(var j=0;j<arr[i].textlist.length;j++){
+        if (arr[i].textlist[j]!==""){
+          arr[i].textlist[j] = arr[i].textlist[j].split(".")[1]
+        }
+      }
     }
     return arr;
   },
