@@ -1,12 +1,15 @@
 {
   "pages": [
-    "pages/notfund/notfund",
+      "pages/storydetail/storydetail",
     "pages/home/home",
+    "pages/notfund/notfund",
     "pages/index/index",
     "pages/luckycat/luckycat",
     "pages/tlogs/tlogs",
     "pages/travel/travel",
-    "pages/treasure/treasure"
+    "pages/treasure/treasure",
+    
+"pages/storylist/storylist"
   ],
   "window": {
     "backgroundTextStyle": "light",
