@@ -24,16 +24,33 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    var datt = new Date();
     var that=this;
     wx.getUserInfo({
       success: res => {
         that.setData({
           userInfo:res.userInfo
         })
+
+        var loginlogs = {};
+        loginlogs.userInfo =res.userInfo;
+        loginlogs.dateTime = util.formatTime(datt);
+        loginlogs.page ="/pages/storydetail/storydetail";
+       
+          wx.request({
+            url: server + '/loginlogs/add',
+            method: 'POST',
+            data: loginlogs
+            , header: {
+              'content-type': 'application/json'
+            },
+            success: function (res) {
+              console.log(res.data);
+            }
+          });
       }});
     var dt = null;
-    if (options.datetime === undefined) {
-      var datt = new Date();
+    if (options.datetime === undefined) {  
       dt = util.formatTime(datt).split(" ")[0];
       console.log(dt)
     } else {
@@ -49,9 +66,11 @@ Page({
         'content-type': 'application/json'
       },
       success: function (res) {
+
         that.setData({
           story:res.data
         })
+       
       }
     });
   },
