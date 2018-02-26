@@ -15,7 +15,7 @@
       <view class="weui-article">
        
           <view class="weui-article__p" style="color:green;font-size:20px;">
-            {{story.content}}❤
+            {{story.content}}
         </view>
       </view>
     </view>
