@@ -1,6 +1,6 @@
 {
   "pages": [
-      "pages/storydetail/storydetail",
+    "pages/storydetail/storydetail",
     "pages/home/home",
     "pages/notfund/notfund",
     "pages/index/index",
@@ -8,13 +8,41 @@
     "pages/tlogs/tlogs",
     "pages/travel/travel",
     "pages/treasure/treasure",
-    
-"pages/storylist/storylist"
+    "pages/storylist/storylist",
+    "pages/zhihudaily/zhihudaily",
+    "pages/dailylist/dailylist",
+    "pages/mystory/mystory",
+    "pages/about/about"
   ],
   "window": {
-    "backgroundTextStyle": "light",
+    "backgroundTextStyle": "black",
     "navigationBarBackgroundColor": "#C4E2D8",
     "navigationBarTitleText": "余",
     "navigationBarTextStyle": "green"
+  },
+  "tabBar": {
+    "color": "#a9b7b7",
+    "selectedColor": "#c4e2d8",
+    "borderStyle": "white",
+    "list": [
+      {
+        "selectedIconPath": "images/111.png",
+        "iconPath": "images/11.png",
+        "pagePath": "pages/storydetail/storydetail",
+        "text": "story"
+      },
+      {
+        "selectedIconPath": "images/221.png",
+        "iconPath": "images/22.png",
+        "pagePath": "pages/dailylist/dailylist",
+        "text": "zhihudaily"
+      },
+      {
+        "selectedIconPath": "images/331.png",
+        "iconPath": "images/33.png",
+        "pagePath": "pages/mystory/mystory",
+        "text": "my"
+      }
+    ]
   }
 }

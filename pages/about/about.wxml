@@ -1,0 +1,23 @@
+<!--pages/about/about.wxml-->
+<view class="page">
+    <view class="page__bd">
+        <view class="weui-article" >
+            <view class="weui-article__h1">关于小程序</view>
+            <view class="weui-article__section">
+                <view class="weui-article__title">作者：孟琦</view>
+                <view class="weui-article__section">
+                    <view class="weui-article__h3">反馈微信：feirao475543</view>
+                    <view class="weui-article__p">
+                       CS狗一枚，单身狗关爱单身狗协会会员，擅长写BUG，为人不幽默，不接受恶意批判，向命运低头。因某些原因作此小程序服务大众，希望世界多点爱。Blog：http://mengqipoet.cn/
+                    </view>
+                </view>
+                <view class="weui-article__section">
+                    <view class="weui-article__h3">声明</view>
+                    <view class="weui-article__p">
+                       不用做商业用途，不以营利为目的。
+                    </view>
+                </view>
+            </view>
+        </view>
+    </view>
+</view>

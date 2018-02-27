@@ -2,7 +2,9 @@
 var server = "https://api.mengqipoet.cn"
 // var server = "http://localhost:8080"
 var util = require("../../utils/util");
-const app=getApp();
+const app = getApp();
+var WxParse = require('../../wxParse/wxParse.js');
+
 Page({
 
   /**
@@ -11,32 +13,49 @@ Page({
   data: {
     hadshowwt: false,
     story: {},
-    userInfo:{},
-    title:"",
-    content:""
+    userInfo: {},
+    title: "",
+    content: "",
+    showcontent:"",
+    toWho: "",
+    showstorycontent:false,
+    showgame: false,
+    storyindex:0,
+    storylist:[],
+    nothaspre:true,
+    nothasnext: true
   },
-  playgame:function(){
+  playgame: function () {
     wx.navigateTo({
       url: '/pages/home/home',
     })
   },
+  
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    var customer = wx.getStorageSync('customer');
+    if (customer === '') return;
     var datt = new Date();
-    var that=this;
+    var that = this;
+    var userInfo={}
     wx.getUserInfo({
       success: res => {
+        userInfo = res.userInfo;
         that.setData({
-          userInfo:res.userInfo
+          userInfo: userInfo
         })
-
+        if (userInfo.nickName === 'Ashley' || customer.id === '5a82819ee4a6be01107708fc') {
+          that.setData({
+            showgame: true
+          })
+        }
         var loginlogs = {};
-        loginlogs.userInfo =res.userInfo;
+        loginlogs.userInfo = res.userInfo;
         loginlogs.dateTime = util.formatTime(datt);
-        loginlogs.page ="/pages/storydetail/storydetail";
-       
+        loginlogs.page = "/pages/storydetail/storydetail";
+        if (loginlogs.userInfo.nickName === 'Ashley') {
           wx.request({
             url: server + '/loginlogs/add',
             method: 'POST',
@@ -48,56 +67,115 @@ Page({
               console.log(res.data);
             }
           });
-      }});
-    var dt = null;
-    if (options.datetime === undefined) {  
-      dt = util.formatTime(datt).split(" ")[0];
-      console.log(dt)
-    } else {
-      dt = options.datetime;
-    }
-   
-    wx.request({
-      url: server + '/sleepstory/getbydatetime',
-      method: 'GET',
-      data: {
-        dateTime: dt
-      }, header: {
-        'content-type': 'application/json'
-      },
-      success: function (res) {
+        }
 
-        that.setData({
-          story:res.data
-        })
-       
+        wx.request({
+          url: server + '/sleepstory/getbytimestamp',
+          method: 'GET',
+          data: {
+            timestamp: datt.getTime(),
+            toWho:userInfo.nickName
+          }, header: {
+            'content-type': 'application/json'
+          },
+          success: function (res) {
+            console.log(res.data)
+            if (res.data ===undefined||res.data.length===0||res.data===null)return;
+            if(res.data.length>1){
+              that.setData({
+                nothasnext:false
+              })
+            }
+            that.setData({
+              storylist: res.data,
+              story:res.data[0],
+              showcontent: res.data[0].content,
+              showstorycontent:true
+            })
+            WxParse.wxParse('showcontent', 'md', that.data.showcontent , that, 5);
+          }
+        });
       }
     });
   },
-  bindtitle:function(e){
+  bindtitle: function (e) {
     this.setData({
-      title:e.detail.value
+      title: e.detail.value
     })
   },
+  bindwho: function (e) {
+    this.setData({
+      toWho: e.detail.value
+    })},
   bindcontent: function (e) {
     this.setData({
       content: e.detail.value
     })
   },
+  nextstory :function(){
+   
+  var that=this;
+  var index = that.data.storyindex;
+  var storylist = that.data.storylist;
+  index+=1;
+  console.log(index)
+  if(index===storylist.length-1){
+    that.setData({
+      nothasnext:true
+    })
+  }
+  that.setData({
+    storyindex: index,
+    story: storylist[index],
+    nothaspre: false
+  })
+  WxParse.wxParse('showcontent', 'md', storylist[index].content, that, 5);
+  },
+  prestory:function(){
+
+    var that = this;
+    var index = that.data.storyindex;
+    var storylist = that.data.storylist;
+    index -= 1;
+    console.log(index)
+    if (index === 0) {
+      that.setData({
+        nothaspre: true
+      })
+    }
+    that.setData({
+      storyindex: index,
+      story: storylist[index],
+      nothasnext: false
+    })
+    WxParse.wxParse('showcontent', 'md', storylist[index].content, that, 5);
+  },
   savestory: function () {
-    var datt=new Date();
-    var dt=util.formatTime(datt);
-    var mystory={}
-    var that=this;
-    mystory.dateTime=dt;
-    mystory.author=that.data.userInfo.nickName;
+    var datt = new Date();
+    var dt = util.formatTime(datt);
+    var mystory = {}
+    var that = this;
+    mystory.dateTime = dt;
+    mystory.author = that.data.userInfo.nickName;
     mystory.content = that.data.content;
-    mystory.title=that.data.title;
+    mystory.title = that.data.title;
+    mystory.timestamp=datt.getTime();
+    mystory.authorId=wx.getStorageSync('customer').id;
+    mystory.status="1";
+    mystory.toWho = that.data.toWho === "" ? "everyone" : that.data.toWho;
     console.log(mystory)
+    if(mystory.title===""||mystory.content===""){
+      wx.showToast({
+        title: '标题或内容为空',
+        icon:"loading",
+        duration:2000
+      })
+      return;
+    }
     wx.request({
       url: server + '/sleepstory/add',
       method: 'POST',
-      data: mystory, 
+      data: mystory,
       header: {
         'content-type': 'application/json'
       },

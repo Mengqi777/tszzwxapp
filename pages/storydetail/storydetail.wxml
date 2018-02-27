@@ -1,45 +1,51 @@
-<!--pages/storydetail/storydetail.wxml-->
-<!--pages/storylist/storylist.wxml-->
-<!--pages/tlogs/tlogs.wxml-->
+<import src="../../wxParse/wxParse.wxml" />
 <view class='page'>
   <view class="page__hd">
-  
   </view>
+  <view class="page__hd">
+    <view class="page__title" style='text-align:center;color:green'>{{story.title}}</view>
+    <view class="page__title" style='text-align:center;color:green;font-size:15px;'>{{story.dateTime}}</view>
+    <view class="page__title" style='text-align:center;color:green;font-size:15px;'>from: {{story.author}}</view>
+    <view class="page__title" style='text-align:center;color:green;font-size:15px;'>to: {{story.toWho}}</view>
+  </view>
+  <view class="page__bd">
+    <view class="weui-article">
+      <view class="weui-article__p" style="color:green;font-size:20px;">
+        <template is="wxParse" data="{{wxParseData:showcontent.nodes}}" />
+      </view>
+      <view class="weui-panel__ft" wx-if="{{showstorycontent}}">
 
-  
-    <view class="page__hd">
-        <view class="page__title" style='text-align:center;color:green'>{{story.title}}</view>
-        
     </view>
-    <view class="page__bd">
-      <view class="weui-article">
-       
-          <view class="weui-article__p" style="color:green;font-size:20px;">
-            {{story.content}}
-        </view>
+    </view>
+    <view class="weui-panel__ft" wx-if="{{showstorycontent}}">
+      <view class="weui-cell weui-cell_access weui-cell_link">
+        <view class="weui-cell__hd" bindtap='prestory' hidden='{{nothaspre}}'>前一篇</view>
+        <view class="weui-cell__bd"></view>
+        <view class="weui-cell__ft" bindtap='nextstory' hidden='{{nothasnext}}'>后一篇</view>
       </view>
     </view>
- 
+  </view>
   <view class="weui-cell" style='color:green;' bindtap='showwriteone'>
     <view class="weui-cell__hd">写一则故事</view>
     <view class="weui-cell__ft weui-cell__ft_in-access"></view>
   </view>
-  <view class="weui-cell" style='color:green;' bindtap='playgame'>
+  <view class="weui-cell" style='color:green;' wx-if='{{showgame}}' bindtap='playgame'>
     <view class="weui-cell__hd">玩游戏吗🤣</view>
     <view class="weui-cell__ft weui-cell__ft_in-access"></view>
   </view>
-    <view style='color:green;' wx-if="{{hadshowwt}}">
-        <view class="page__title" style='text-align:center;color:green'>
-        标题</view>
-        <input style='height:40px;background-color:white;width:90%;margin-left:20px;margin-right:20px;' bindinput='bindtitle'/>
+  <view style='color:green;' wx-if="{{hadshowwt}}">
+    <view class="page__title" style='text-align:center;color:green'>
+      标题</view>
+    <input class='inputstory' placeholder='标题' bindinput='bindtitle' />
+    <view class="page__title" style='text-align:center;color:green'>
+      写给谁</view>
+    <input class='inputstory' placeholder='输入那人微信昵称，不写默认所有人' bindinput='bindwho' />
     <view class="page__bd">
       <view class="page__title" style='text-align:center;color:green'>
         内容</view>
-        <textarea   style='height:300px;background-color:white;margin-left:20px;width:90%;margin-right:20px;' bindinput='bindcontent' maxlength='123456789'>
-        </textarea>
+      <textarea class='inputstory textarea' placeholder='想写点什么，限制一万字，支持markdown语法' bindinput='bindcontent' maxlength='10000'>
+      </textarea>
     </view>
-    <button style='width:100px;margin-top:20px;' bindtap='savestory'>保存</button>
+    <button style='width:100px;margin-top:20px;margin-bottom:100px;' bindtap='savestory'>保存</button>
   </view>
 </view>
-
-
