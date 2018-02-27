@@ -11,6 +11,7 @@ Page({
    * 页面的初始数据
    */
   data: {
+    progress:20,
     hadshowwt: false,
     story: {},
     userInfo: {},
@@ -31,6 +32,12 @@ Page({
     })
   },
   
+getwastedays:function(tody){
+   var mills= tody.getTime();
+   var res = (mills - 1514736000000) / (365 * 24 * 60 * 60 * 1000);
+   return parseFloat(res.toFixed(2))
+},
+
   /**
    * 生命周期函数--监听页面加载
    */
@@ -39,6 +46,10 @@ Page({
     if (customer === '') return;
     var datt = new Date();
     var that = this;
+    var process=that.getwastedays(datt);
+    that.setData({
+      progress: process*100
+    })
     var userInfo={}
     wx.getUserInfo({
       success: res => {
