@@ -8,9 +8,9 @@ Page({
    */
   data: {
     content: {},
-    stories:[],
-    currentdate:null,
-    currentnumber:0
+    stories: [],
+    currentdate: null,
+    currentnumber: 0
   },
 
   /**
@@ -18,7 +18,23 @@ Page({
    */
   onLoad: function (options) {
     var that = this;
-    var tody=new Date();
+    var tody = new Date();
+    var customer = wx.getStorageSync('customer');
+    var loginlogs = {};
+    loginlogs.userInfo = customer.userInfo;
+    loginlogs.dateTime = util.formatTime(tody);
+    loginlogs.page = "/pages/dailylist/dailylist";
+    wx.request({
+      url: server + '/loginlogs/add',
+      method: 'POST',
+      data: loginlogs
+      , header: {
+        'content-type': 'application/json'
+      },
+      success: function (res) {
+        console.log(res.data);
+      }
+    });
     wx.request({
       url: zhihuserver,
       method: "GET",
@@ -26,32 +42,32 @@ Page({
         console.log(res.data)
         that.setData({
           content: res.data,
-          stories:res.data.stories,
-          currentdate:tody
+          stories: res.data.stories,
+          currentdate: tody
         })
       }
     })
   },
-  getdistancedate:function(distance){
-    return new Date(new Date()-distance);
+  getdistancedate: function (distance) {
+    return new Date(new Date() - distance);
   },
-  formattime:function(datestr){
+  formattime: function (datestr) {
     return datestr.split(" ")[0].split("-").join("")
   },
-  predaily:function(){
-    var that=this;
-    var distancenumber=that.data.currentnumber+1;
+  predaily: function () {
+    var that = this;
+    var distancenumber = that.data.currentnumber + 1;
     that.setData({
-      currentnumber:distancenumber
+      currentnumber: distancenumber
     })
-    var tempdate = that.getdistancedate(distancenumber* 24 * 60 * 60 * 1000)
+    var tempdate = that.getdistancedate(distancenumber * 24 * 60 * 60 * 1000)
     var datepre = that.formattime(util.formatTime(tempdate))
     that.getotherdaily(datepre);
   },
-  getotherdaily:function(formatteddate){
-    var that=this;
+  getotherdaily: function (formatteddate) {
+    var that = this;
     wx.request({
-      url: "https://news-at.zhihu.com/api/4/news/before/"+formatteddate,
+      url: "https://news-at.zhihu.com/api/4/news/before/" + formatteddate,
       method: "GET",
       success: function (res) {
         console.log(res.data)
@@ -62,7 +78,7 @@ Page({
       }
     })
   },
-  nextdaily:function(){
+  nextdaily: function () {
     var that = this;
     var distancenumber = that.data.currentnumber - 1;
     that.setData({
@@ -72,11 +88,11 @@ Page({
     var datenext = that.formattime(util.formatTime(tempdate))
     that.getotherdaily(datenext);
   },
-  viewdetail:function(e){
+  viewdetail: function (e) {
     console.log(e.currentTarget.dataset.zid)
     var zid = e.currentTarget.dataset.zid;
     wx.navigateTo({
-      url: '/pages/zhihudaily/zhihudaily?zid='+zid,
+      url: '/pages/zhihudaily/zhihudaily?zid=' + zid,
     })
   },
   /**

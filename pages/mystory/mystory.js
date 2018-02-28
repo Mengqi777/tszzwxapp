@@ -1,6 +1,7 @@
 // pages/mystory/mystory.js
 // var server = "http://localhost:8080"
 var server = "https://api.mengqipoet.cn"
+var util = require("../../utils/util");
 Page({
 
   /**
@@ -41,8 +42,24 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-      var customer=wx.getStorageSync('customer');
-      var that=this;
+    var that = this;
+    var tody = new Date();
+    var customer = wx.getStorageSync('customer');
+    var loginlogs = {};
+    loginlogs.userInfo = customer.userInfo;
+    loginlogs.dateTime = util.formatTime(tody);
+    loginlogs.page = "/pages/dailylist/dailylist";
+    wx.request({
+      url: server + '/loginlogs/add',
+      method: 'POST',
+      data: loginlogs
+      , header: {
+        'content-type': 'application/json'
+      },
+      success: function (res) {
+        console.log(res.data);
+      }
+    });
       wx.request({
         url: server + '/sleepstory/getbyauthorid',
         method: 'GET',

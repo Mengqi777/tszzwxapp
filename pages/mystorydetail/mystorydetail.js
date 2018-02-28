@@ -17,8 +17,24 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    var that=this;
-
+    var that = this;
+    var tody = new Date();
+    var customer = wx.getStorageSync('customer');
+    var loginlogs = {};
+    loginlogs.userInfo = customer.userInfo;
+    loginlogs.dateTime = util.formatTime(tody);
+    loginlogs.page = "/pages/dailylist/dailylist";
+    wx.request({
+      url: server + '/loginlogs/add',
+      method: 'POST',
+      data: loginlogs
+      , header: {
+        'content-type': 'application/json'
+      },
+      success: function (res) {
+        console.log(res.data);
+      }
+    });
   var sid=options.sid;
   wx.request({
     url: server + '/sleepstory/getbyid',

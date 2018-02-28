@@ -1,6 +1,6 @@
 // pages/zhihudaily/zhihudaily.js
 var WxParse = require('../../wxParse/wxParse.js');
-
+var util = require("../../utils/util");
 var zhihuserver ="https://news-at.zhihu.com/api/4/news/"
 Page({
 
@@ -30,7 +30,23 @@ Page({
    */
   onLoad: function (options) {
     var that = this;
-    console.log(options.zid)
+    var tody = new Date();
+    var customer = wx.getStorageSync('customer');
+    var loginlogs = {};
+    loginlogs.userInfo = customer.userInfo;
+    loginlogs.dateTime = util.formatTime(tody);
+    loginlogs.page = "/pages/dailylist/dailylist";
+    wx.request({
+      url: server + '/loginlogs/add',
+      method: 'POST',
+      data: loginlogs
+      , header: {
+        'content-type': 'application/json'
+      },
+      success: function (res) {
+        console.log(res.data);
+      }
+    });
     var zid=options.zid;
     wx.request({
       url: zhihuserver+zid,

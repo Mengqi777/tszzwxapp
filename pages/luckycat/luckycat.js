@@ -7,6 +7,7 @@ var arrz = [];
 var canvasw = 0;
 var canvash = 0;
 var base64 = require("../../utils/base64");
+var util = require("../../utils/util");
 //获取系统信息  
 wx.getSystemInfo({
   success: function (res) {
@@ -99,7 +100,25 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    this.setData({
+    var that = this;
+    var tody = new Date();
+    var customer = wx.getStorageSync('customer');
+    var loginlogs = {};
+    loginlogs.userInfo = customer.userInfo;
+    loginlogs.dateTime = util.formatTime(tody);
+    loginlogs.page = "/pages/dailylist/dailylist";
+    wx.request({
+      url: server + '/loginlogs/add',
+      method: 'POST',
+      data: loginlogs
+      , header: {
+        'content-type': 'application/json'
+      },
+      success: function (res) {
+        console.log(res.data);
+      }
+    });
+    that.setData({
       bgi: base64.luckycatbgi
     })
     // 使用 wx.createContext 获取绘图上下文 context  

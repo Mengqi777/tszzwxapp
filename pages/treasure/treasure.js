@@ -2,7 +2,7 @@
 var server = "https://api.mengqipoet.cn"
 // var server = "http://localhost:8080"
 const appIns=getApp()
-
+var util = require("../../utils/util");
 Page({
 
   /**
@@ -43,14 +43,31 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    
+    var that = this;
+    var tody = new Date();
+    var customer = wx.getStorageSync('customer');
+    var loginlogs = {};
+    loginlogs.userInfo = customer.userInfo;
+    loginlogs.dateTime = util.formatTime(tody);
+    loginlogs.page = "/pages/dailylist/dailylist";
+    wx.request({
+      url: server + '/loginlogs/add',
+      method: 'POST',
+      data: loginlogs
+      , header: {
+        'content-type': 'application/json'
+      },
+      success: function (res) {
+        console.log(res.data);
+      }
+    });
     var treasures = wx.getStorageSync('customer').treasures || [];
     var temps = [];
     for (var i = 0; i < 10; i++) {
       if (i === treasures.length) break;
       temps.push(treasures[i])
     }
-    var that = this;
+  
     // console.log(temps);
     var titles = that.getTitles(temps);
     console.log(titles)

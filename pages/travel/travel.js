@@ -2,6 +2,7 @@
 var server = "https://api.mengqipoet.cn"
 // var server = "http://localhost:8080"
 var base64 = require("../../utils/base64");
+var util = require("../../utils/util");
 Page({
 
   /**
@@ -45,6 +46,23 @@ Page({
    */
   onLoad: function (options) {
     var that = this;
+    var tody = new Date();
+    var customer = wx.getStorageSync('customer');
+    var loginlogs = {};
+    loginlogs.userInfo = customer.userInfo;
+    loginlogs.dateTime = util.formatTime(tody);
+    loginlogs.page = "/pages/dailylist/dailylist";
+    wx.request({
+      url: server + '/loginlogs/add',
+      method: 'POST',
+      data: loginlogs
+      , header: {
+        'content-type': 'application/json'
+      },
+      success: function (res) {
+        console.log(res.data);
+      }
+    });
     var id = options.id;
     wx.request({
       method: "GET",

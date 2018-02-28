@@ -66,7 +66,7 @@ getwastedays:function(tody){
         loginlogs.userInfo = res.userInfo;
         loginlogs.dateTime = util.formatTime(datt);
         loginlogs.page = "/pages/storydetail/storydetail";
-        if (loginlogs.userInfo.nickName === 'Ashley') {
+       
           wx.request({
             url: server + '/loginlogs/add',
             method: 'POST',
@@ -78,7 +78,7 @@ getwastedays:function(tody){
               console.log(res.data);
             }
           });
-        }
+        
 
         wx.request({
           url: server + '/sleepstory/getbytimestamp',
