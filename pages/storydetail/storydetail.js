@@ -12,6 +12,7 @@ Page({
    */
   data: {
     progress:20,
+    progresspercent:0,
     hadshowwt: false,
     story: {},
     userInfo: {},
@@ -35,7 +36,10 @@ Page({
 getwastedays:function(tody){
    var mills= tody.getTime();
    var res = (mills - 1514736000000) / (365 * 24 * 60 * 60 * 1000);
-   return parseFloat(res.toFixed(2))
+   var arr=[];
+   arr.push(parseFloat(res.toFixed(2)))
+   arr.push(parseFloat(res.toFixed(4)))
+   return arr;
 },
 
   /**
@@ -46,9 +50,11 @@ getwastedays:function(tody){
     if (customer === '') return;
     var datt = new Date();
     var that = this;
-    var process=that.getwastedays(datt);
+    var arr=that.getwastedays(datt);
+    console.log(arr)
     that.setData({
-      progress: process*100
+      progress: arr[0]*100,
+      progresspercent:arr[1]*100
     })
     var userInfo={}
     wx.getUserInfo({
