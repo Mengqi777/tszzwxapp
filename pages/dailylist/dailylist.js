@@ -1,5 +1,6 @@
 // pages/dailylist/dailylist.js
 var zhihuserver = "https://news-at.zhihu.com/api/4/news/latest"
+var server = "https://api.mengqipoet.cn"
 var util = require("../../utils/util");
 Page({
 

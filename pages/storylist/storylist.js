@@ -1,5 +1,6 @@
 // pages/storylist/storylist.js
 var util = require("../../utils/util");
+var server = "https://api.mengqipoet.cn"
 Page({
 
   /**

@@ -8,6 +8,7 @@ var canvasw = 0;
 var canvash = 0;
 var base64 = require("../../utils/base64");
 var util = require("../../utils/util");
+var server = "https://api.mengqipoet.cn"
 //获取系统信息  
 wx.getSystemInfo({
   success: function (res) {

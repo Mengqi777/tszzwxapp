@@ -1,4 +1,5 @@
 // pages/zhihudaily/zhihudaily.js
+var server = "https://api.mengqipoet.cn"
 var WxParse = require('../../wxParse/wxParse.js');
 var util = require("../../utils/util");
 var zhihuserver ="https://news-at.zhihu.com/api/4/news/"
