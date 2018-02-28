@@ -1,0 +1,18 @@
+<import src="../../wxParse/wxParse.wxml" />
+<view class='page'>
+
+  <text>\n</text>
+  <view class="page__hd">
+    <view class="page__title" style='text-align:center;color:green;font-size:26px;  word-wrap: break-word;word-break: break-all;'>{{story.title}}</view>
+    <view class="page__title " style='text-align:center;font-size:15px;color:#009966'>{{story.dateTime}}</view>
+    <view class="page__title" wx-if="{{story.author}}" style='text-align:center;font-size:15px;color:#009966;'>from: {{story.author}}</view>
+    <view class="page__title " wx-if="{{story.toWho}}" style='text-align:center;font-size:15px;color:#009966;'>to: {{story.toWho}}</view>
+  </view>
+  <view class="page__bd">
+    <view class="weui-article">
+      <view class="weui-article__p" style="color:green;font-size:20px;">
+        <template is="wxParse" data="{{wxParseData:showcontent.nodes}}" />
+      </view>
+    </view>
+  </view>
+</view>

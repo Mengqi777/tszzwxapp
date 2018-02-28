@@ -1,19 +1,20 @@
 <import src="../../wxParse/wxParse.wxml" />
 <view class='page'>
   <view class="page__hd" style='font-size:25px;margin-left:15px;color:green'>
-  2018
+    2018
   </view>
   <view class="page__bd page__bd_spacing">
     <view class="weui-progress" style='margin-left:15px;margin-right:15px;'>
       <view class="weui-progress__bar">
         <progress percent="{{progress}}" stroke-width="13" />
       </view>
-    <span style="color:green;font-size:15px;">{{progress}}%</span>
+      <span style="color:green;font-size:15px;">{{progress}}%</span>
     </view>
   </view>
   <text>\n</text>
   <view class="page__hd">
-    <view class="page__title" style='text-align:center;color:green;font-size:30px;'>{{story.title}}</view>
+    <view class="page__title" style='text-align:center;color:green;font-size:20px;word-wrap: break-word;word-break: break-all;'>{{story.title}}</view>
+     <text>\n</text>
     <view class="page__title " style='text-align:center;font-size:15px;color:#009966'>{{story.dateTime}}</view>
     <view class="page__title" wx-if="{{story.author}}" style='text-align:center;font-size:15px;color:#009966;'>from: {{story.author}}</view>
     <view class="page__title " wx-if="{{story.toWho}}" style='text-align:center;font-size:15px;color:#009966;'>to: {{story.toWho}}</view>
@@ -24,7 +25,6 @@
         <template is="wxParse" data="{{wxParseData:showcontent.nodes}}" />
       </view>
       <view class="weui-panel__ft" wx-if="{{showstorycontent}}">
-
       </view>
     </view>
     <view class="weui-panel__ft" wx-if="{{showstorycontent}}">
@@ -35,6 +35,7 @@
       </view>
     </view>
   </view>
+   <text>\n</text>
   <view class="weui-cell" style='color:green;' bindtap='showwriteone'>
     <view class="weui-cell__hd">写一则故事</view>
     <view class="weui-cell__ft weui-cell__ft_in-access"></view>
@@ -43,6 +44,7 @@
     <view class="weui-cell__hd">玩游戏吗🤣</view>
     <view class="weui-cell__ft weui-cell__ft_in-access"></view>
   </view>
+   <text>\n</text>
   <view style='color:green;' wx-if="{{hadshowwt}}">
     <view class="page__title" style='text-align:center;color:green'>
       标题</view>

@@ -10,6 +10,12 @@ Page({
   pageNumber:0,
   storyList:[]
   },
+  viewdetail:function(e){
+    var sid=e.currentTarget.dataset.sid;
+    wx.navigateTo({
+      url: '/pages/mystorydetail/mystorydetail?sid='+sid,
+    })
+  },
   delmystory:function(e){
     var that=this;
     
@@ -58,6 +64,7 @@ Page({
   getmore:function(){
     var that=this;
     var pageNumber=that.data.pageNumber+1;
+    var customer=wx.getStorageSync('customer');
     wx.request({
       url: server + '/sleepstory/getbyauthorid',
       method: 'GET',

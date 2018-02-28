@@ -7,12 +7,12 @@
         <view  class="weui-panel weui-panel_access" style='background-color:#c4e2d8'>
           <view class="weui-panel__bd" wx:for="{{storyList}}" wx:for-item="items">
             <view class="weui-media-box weui-media-box_text">
-              <view class="weui-media-box__title weui-media-box__title_in-text" style='color:green'>{{items.title}}</view>
+              <view class="weui-media-box__title weui-media-box__title_in-text" style='color:green' bindtap='viewdetail' data-sid='{{items.id}}'>{{items.title}}</view>
               <view class="weui-media-box__desc" >时间：{{items.dateTime}}<span style="color:red;margin-left:180px;" bindtap="delmystory" data-sindex="{{index}}">删除</span></view>
             </view>
             <view class="weui-media-box weui-media-box_text">
-              <view class="weui-media-box__title weui-media-box__title_in-text" style='color:green'>写给：{{items.toWho}}</view>
-              <view class="weui-media-box__desc">{{items.content}}</view>
+              <view class="weui-media-box__title weui-media-box__title_in-text" style='color:green' bindtap='viewdetail' data-sid='{{items.id}}'>写给：{{items.toWho}}</view>
+              <view class="weui-media-box__desc" bindtap='viewdetail' data-sid='{{items.id}}'>{{items.content}}</view>
             </view>
              <view class="weui-cell" style='background-color:#d4f2d8;'></view>
           </view>
@@ -20,7 +20,7 @@
       </view>
     </view>
   </view>
-  <view class="weui-cell" style='color:green;' bindtap='getmore'>
+  <view class="weui-cell" style='color:green;margin-bottom:100px;' bindtap='getmore'>
     <view class="weui-cell__hd">查看更多</view>
     <view class="weui-cell__ft weui-cell__ft_in-access"></view>
   </view>

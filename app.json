@@ -12,7 +12,8 @@
     "pages/zhihudaily/zhihudaily",
     "pages/dailylist/dailylist",
     "pages/mystory/mystory",
-    "pages/about/about"
+    "pages/about/about",
+    "pages/mystorydetail/mystorydetail"
   ],
   "window": {
     "backgroundTextStyle": "black",

@@ -191,9 +191,16 @@ getwastedays:function(tody){
         'content-type': 'application/json'
       },
       success: function (res) {
-        wx.reLaunch({
-          url: '/pages/storydetail/storydetail',
+        wx.showToast({
+          title: '成功',
+          duration:2200,
+          success:function(){
+            wx.reLaunch({
+              url: '/pages/storydetail/storydetail',
+            })
+          }
         })
+      
       }
     });
   },

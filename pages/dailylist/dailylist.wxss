@@ -18,3 +18,10 @@ page{
 
 .weui-media-box{background-color: #c4e2d8;color: green;}
 
+.title{
+  width: 100%;
+  font-size: 18px;
+  word-wrap: break-word;
+  word-break: break-all;
+}
+

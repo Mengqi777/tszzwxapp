@@ -11,7 +11,7 @@
               <image class="weui-media-box__thumb" src="{{item.images[0]}}" />
             </view>
             <view class="weui-media-box__bd weui-media-box__bd_in-appmsg">
-              <view class="weui-media-box__title">{{item.title}}</view>
+            <view  class="title">{{item.title}}</view>
             </view>
           </view>
         </view>
