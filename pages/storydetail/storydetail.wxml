@@ -40,12 +40,7 @@
     <view class="weui-cell__hd">写一则故事</view>
     <view class="weui-cell__ft weui-cell__ft_in-access"></view>
   </view>
-  <view class="weui-cell" style='color:green;' wx-if='{{showgame}}' bindtap='playgame'>
-    <view class="weui-cell__hd">玩游戏吗🤣</view>
-    <view class="weui-cell__ft weui-cell__ft_in-access"></view>
-  </view>
-   <text>\n</text>
-  <view style='color:green;' wx-if="{{hadshowwt}}">
+    <view style='color:green;' wx-if="{{hadshowwt}}">
     <view class="page__title" style='text-align:center;color:green'>
       标题</view>
     <input class='inputstory' placeholder='标题' bindinput='bindtitle' />
@@ -60,4 +55,10 @@
     </view>
     <button style='width:100px;margin-top:20px;margin-bottom:100px;' bindtap='savestory'>保存</button>
   </view>
+  <view class="weui-cell" style='color:green;' wx-if='{{showgame}}' bindtap='playgame'>
+    <view class="weui-cell__hd">玩游戏吗🤣</view>
+    <view class="weui-cell__ft weui-cell__ft_in-access"></view>
+  </view>
+   <text>\n</text>
+
 </view>

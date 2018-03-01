@@ -53,8 +53,8 @@ getwastedays:function(tody){
     var arr=that.getwastedays(datt);
     console.log(arr)
     that.setData({
-      progress: arr[0]*100,
-      progresspercent:arr[1]*100
+      progress: parseInt((arr[0]*100).toFixed(0)),
+      progresspercent:(arr[1]*100).toFixed(2)
     })
     var userInfo={}
     wx.getUserInfo({
