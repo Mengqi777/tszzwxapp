@@ -1,7 +1,7 @@
 <import src="../../wxParse/wxParse.wxml" />
 <view class='page'>
   <view class="page__hd" style='font-size:25px;margin-left:15px;color:green'>
-    2018
+    {{datetime}}
   </view>
   <view class="page__bd page__bd_spacing">
     <view class="weui-progress" style='margin-left:15px;margin-right:15px;'>

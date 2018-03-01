@@ -11,6 +11,7 @@ Page({
    * 页面的初始数据
    */
   data: {
+    datetime:"",
     progress:20,
     progresspercent:0,
     hadshowwt: false,
@@ -41,6 +42,10 @@ getwastedays:function(tody){
    arr.push(parseFloat(res.toFixed(4)))
    return arr;
 },
+formatNumber:function (n) {
+  n = n.toString()
+  return n[1] ? n : '0' + n
+},
 
   /**
    * 生命周期函数--监听页面加载
@@ -50,9 +55,11 @@ getwastedays:function(tody){
     if (customer === '') return;
     var datt = new Date();
     var that = this;
+    var datetime = datt.getFullYear() + "年" + that.formatNumber((datt.getMonth() + 1)) + "月" + that.formatNumber(datt.getDay())+"日"
     var arr=that.getwastedays(datt);
     console.log(arr)
     that.setData({
+      datetime: datetime,
       progress: parseInt((arr[0]*100).toFixed(0)),
       progresspercent:(arr[1]*100).toFixed(2)
     })
