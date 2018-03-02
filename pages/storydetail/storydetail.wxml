@@ -14,10 +14,10 @@
   <text>\n</text>
   <view class="page__hd">
     <view class="page__title" style='padding-left: 15px;color:green;font-size:20px;word-wrap: break-word;word-break: break-all;'>{{story.title}}</view>
-     <text>\n</text>
-    <view class="page__title titlestyle" >{{story.dateTime}}</view>
-    <view class="page__title titlestyle" wx-if="{{story.author}}" >from: {{story.author}}</view>
-    <view class="page__title titlestyle" wx-if="{{story.toWho}}" >to: {{story.toWho}}</view>
+    <text>\n</text>
+    <view class="page__title titlestyle">{{story.dateTime}}</view>
+    <view class="page__title titlestyle" wx-if="{{story.author}}">from: {{story.author}}</view>
+    <view class="page__title titlestyle" wx-if="{{story.toWho}}">to: {{story.toWho}}</view>
   </view>
   <view class="page__bd">
     <view class="weui-article">
@@ -25,6 +25,39 @@
         <template is="wxParse" data="{{wxParseData:showcontent.nodes}}" />
       </view>
       <view class="weui-panel__ft" wx-if="{{showstorycontent}}">
+      </view>
+    </view>
+    <view class="weui-panel__ft" wx-if="{{showstorycontent && like}}">
+      <view class="weui-cell weui-cell_access weui-cell_link">
+        <view class="weui-cell__hd inlinestyle">
+          <image class='innerimg' src='/images/like1.png'></image>{{likenumber}}
+        </view>
+        <view class="weui-cell__bd"></view>
+        <view class="weui-cell__ft inlinestyle">
+          <image class='innerimg' src='/images/dislike111.png'></image>{{dislikenumber}}
+        </view>
+      </view>
+    </view>
+    <view class="weui-panel__ft" wx-if="{{showstorycontent && dislike}}">
+      <view class="weui-cell weui-cell_access weui-cell_link">
+        <view class="weui-cell__hd inlinestyle">
+          <image class='innerimg' src='/images/like111.png'></image>{{likenumber}}
+        </view>
+        <view class="weui-cell__bd"></view>
+        <view class="weui-cell__ft inlinestyle">
+          <image class='innerimg' src='/images/dislike1.png'></image>{{dislikenumber}}
+        </view>
+      </view>
+    </view>
+    <view class="weui-panel__ft" wx-if="{{showstorycontent && uncommit}}">
+      <view class="weui-cell weui-cell_access weui-cell_link">
+        <view class="weui-cell__hd  inlinestyle" bindtap='likeadd'>
+          <image class='innerimg' src='/images/like111.png'></image>{{likenumber}}
+        </view>
+        <view class="weui-cell__bd"></view>
+        <view class="weui-cell__ft inlinestyle" bindtap='dislikeadd'>
+          <image class='innerimg' src='/images/dislike111.png'></image>{{dislikenumber}}
+        </view>
       </view>
     </view>
     <view class="weui-panel__ft" wx-if="{{showstorycontent}}">
@@ -35,12 +68,12 @@
       </view>
     </view>
   </view>
-   <text>\n</text>
+  <text>\n</text>
   <view class="weui-cell" style='color:green;' bindtap='showwriteone'>
     <view class="weui-cell__hd">写一则故事</view>
     <view class="weui-cell__ft weui-cell__ft_in-access"></view>
   </view>
-    <view style='color:green;' wx-if="{{hadshowwt}}">
+  <view style='color:green;' wx-if="{{hadshowwt}}">
     <view class="page__title" style='text-align:center;color:green'>
       标题</view>
     <input class='inputstory' placeholder='标题' bindinput='bindtitle' />
@@ -59,6 +92,6 @@
     <view class="weui-cell__hd">玩游戏吗🤣</view>
     <view class="weui-cell__ft weui-cell__ft_in-access"></view>
   </view>
-   <text>\n</text>
+  <text>\n</text>
 
 </view>

@@ -11,21 +11,26 @@ Page({
    * 页面的初始数据
    */
   data: {
-    datetime:"",
-    progress:20,
-    progresspercent:0,
+    like: true,
+    dislike: true,
+    uncommit: true,
+    datetime: "",
+    likenumber: 0,
+    dislikenumber: 0,
+    progress: 20,
+    progresspercent: 0,
     hadshowwt: false,
     story: {},
     userInfo: {},
     title: "",
     content: "",
-    showcontent:"",
+    showcontent: "",
     toWho: "",
-    showstorycontent:false,
+    showstorycontent: false,
     showgame: false,
-    storyindex:0,
-    storylist:[],
-    nothaspre:true,
+    storyindex: 0,
+    storylist: [],
+    nothaspre: true,
     nothasnext: true
   },
   playgame: function () {
@@ -33,20 +38,115 @@ Page({
       url: '/pages/home/home',
     })
   },
-  
-getwastedays:function(tody){
-   var mills= tody.getTime();
-   var res = (mills - 1514736000000) / (365 * 24 * 60 * 60 * 1000);
-   var arr=[];
-   arr.push(parseFloat(res.toFixed(2)))
-   arr.push(parseFloat(res.toFixed(4)))
-   return arr;
-},
-formatNumber:function (n) {
-  n = n.toString()
-  return n[1] ? n : '0' + n
-},
 
+  getwastedays: function (tody) {
+    var mills = tody.getTime();
+    var res = (mills - 1514736000000) / (365 * 24 * 60 * 60 * 1000);
+    var arr = [];
+    arr.push(parseFloat(res.toFixed(2)))
+    arr.push(parseFloat(res.toFixed(4)))
+    return arr;
+  },
+  formatNumber: function (n) {
+    n = n.toString()
+    return n[1] ? n : '0' + n
+  },
+
+  commitexist: function (commitorinfo, commitlist) {
+    var flag = false;
+    for (var i = 0; i < commitlist.length; i++) {
+      if (commitlist[i] === commitorinfo) {
+        flag = true;
+        break;
+      }
+    }
+    return flag;
+  },
+
+  setshowcommit: function (story) {
+    var that = this;
+    var customer = wx.getStorageSync('customer');
+    var status = 0;
+    var commitorinfo = customer.nickName + "-commit-" + customer.id;
+    if (that.commitexist(commitorinfo, story.likeList)) {
+      status = 1;
+    }
+    if (that.commitexist(commitorinfo, story.dislikeList)) {
+      status = -1;
+    }
+    that.setData({
+      like: status === 1,
+      dislike: status === -1,
+      uncommit: status === 0,
+      likenumber: story.likeList.length,
+      dislikenumber: story.dislikeList.length
+    })
+  },
+  dislikeadd: function () {
+    var that = this;
+    var map = {};
+    map.userId = wx.getStorageSync('customer').id;
+    map.nickName = wx.getStorageSync('customer').nickName;
+    map.id = that.data.story.id;
+
+    wx.request({
+      url: server + '/sleepstory/dislike',
+      method: 'POST',
+      data: map
+      , header: {
+        'content-type': 'application/json'
+      },
+      success: function (res) {
+        var story = that.data.storylist[that.data.storyindex];
+        story.dislike=story.dislike+1;
+        story.dislikeList.push(map);
+        var sl = that.data.storylist;
+        sl[that.data.storyindex] = story;
+        that.setData({
+          like: false,
+          dislike: true,
+          uncommit: false,
+          dislikenumber: story.dislike 
+        })
+      }
+    });
+  },
+  likeadd: function () {
+    var that = this;
+    var map = {};
+
+    map.userId = wx.getStorageSync('customer').id;
+    map.nickName = wx.getStorageSync('customer').nickName;
+    map.id = that.data.story.id;
+
+    wx.request({
+      url: server + '/sleepstory/like',
+      method: 'POST',
+      data: map
+      , header: {
+        'content-type': 'application/json'
+      },
+      success: function (res) {
+        console.log(that.data.storylist)
+        console.log(that.data.storyindex)
+        var story = that.data.storylist[that.data.storyindex];
+        console.log(story)
+        if (story.like!==undefined)
+        story.like = story.like + 1;
+        else story.like=1;
+        story.likeList.push(map);
+        var sl = that.data.storylist;
+        sl[that.data.storyindex]=story;
+        that.setData({
+          like: true,
+          dislike: false,
+          uncommit: false,
+          likenumber: story.like,
+          storylist: sl
+        })
+      }
+    });
+  },
   /**
    * 生命周期函数--监听页面加载
    */
@@ -55,15 +155,15 @@ formatNumber:function (n) {
     if (customer === '') return;
     var datt = new Date();
     var that = this;
-    var datetime = datt.getFullYear() + "年" + that.formatNumber((datt.getMonth() + 1)) + "月" + that.formatNumber(datt.getDay())+"日"
-    var arr=that.getwastedays(datt);
+    var datetime = datt.getFullYear() + "年" + that.formatNumber((datt.getMonth() + 1)) + "月" + that.formatNumber(datt.getDay()) + "日"
+    var arr = that.getwastedays(datt);
     console.log(arr)
     that.setData({
       datetime: datetime,
-      progress: parseInt((arr[0]*100).toFixed(0)),
-      progresspercent:(arr[1]*100).toFixed(2)
+      progress: parseInt((arr[0] * 100).toFixed(0)),
+      progresspercent: (arr[1] * 100).toFixed(2)
     })
-    var userInfo={}
+    var userInfo = {}
     wx.getUserInfo({
       success: res => {
         userInfo = res.userInfo;
@@ -79,44 +179,46 @@ formatNumber:function (n) {
         loginlogs.userInfo = res.userInfo;
         loginlogs.dateTime = util.formatTime(datt);
         loginlogs.page = "/pages/storydetail/storydetail";
-       
-          wx.request({
-            url: server + '/loginlogs/add',
-            method: 'POST',
-            data: loginlogs
-            , header: {
-              'content-type': 'application/json'
-            },
-            success: function (res) {
-              console.log(res.data);
-            }
-          });
-        
+
+        wx.request({
+          url: server + '/loginlogs/add',
+          method: 'POST',
+          data: loginlogs
+          , header: {
+            'content-type': 'application/json'
+          },
+          success: function (res) {
+            console.log(res.data);
+          }
+        });
+
 
         wx.request({
           url: server + '/sleepstory/getbytimestamp',
           method: 'GET',
           data: {
             timestamp: datt.getTime(),
-            toWho:userInfo.nickName
+            toWho: userInfo.nickName
           }, header: {
             'content-type': 'application/json'
           },
           success: function (res) {
             console.log(res.data)
-            if (res.data ===undefined||res.data.length===0||res.data===null)return;
-            if(res.data.length>1){
+            if (res.data === undefined || res.data.length === 0 || res.data === null) return;
+            if (res.data.length > 1) {
               that.setData({
-                nothasnext:false
+                nothasnext: false
               })
             }
+
             that.setData({
               storylist: res.data,
-              story:res.data[0],
+              story: res.data[0],
               showcontent: res.data[0].content,
-              showstorycontent:true
+              showstorycontent: true
             })
-            WxParse.wxParse('showcontent', 'md', that.data.showcontent , that, 5);
+            that.setshowcommit(res.data[0]);
+            WxParse.wxParse('showcontent', 'md', that.data.showcontent, that, 5);
           }
         });
       }
@@ -130,32 +232,34 @@ formatNumber:function (n) {
   bindwho: function (e) {
     this.setData({
       toWho: e.detail.value
-    })},
+    })
+  },
   bindcontent: function (e) {
     this.setData({
       content: e.detail.value
     })
   },
-  nextstory :function(){
-   
-  var that=this;
-  var index = that.data.storyindex;
-  var storylist = that.data.storylist;
-  index+=1;
-  console.log(index)
-  if(index===storylist.length-1){
+  nextstory: function () {
+
+    var that = this;
+    var index = that.data.storyindex;
+    var storylist = that.data.storylist;
+    index += 1;
+    console.log(index)
+    if (index === storylist.length - 1) {
+      that.setData({
+        nothasnext: true
+      })
+    }
     that.setData({
-      nothasnext:true
+      storyindex: index,
+      story: storylist[index],
+      nothaspre: false
     })
-  }
-  that.setData({
-    storyindex: index,
-    story: storylist[index],
-    nothaspre: false
-  })
-  WxParse.wxParse('showcontent', 'md', storylist[index].content, that, 5);
+    that.setshowcommit(storylist[index]);
+    WxParse.wxParse('showcontent', 'md', storylist[index].content, that, 5);
   },
-  prestory:function(){
+  prestory: function () {
 
     var that = this;
     var index = that.data.storyindex;
@@ -172,6 +276,7 @@ formatNumber:function (n) {
       story: storylist[index],
       nothasnext: false
     })
+    that.setshowcommit(storylist[index]);
     WxParse.wxParse('showcontent', 'md', storylist[index].content, that, 5);
   },
   savestory: function () {
@@ -183,16 +288,16 @@ formatNumber:function (n) {
     mystory.author = that.data.userInfo.nickName;
     mystory.content = that.data.content;
     mystory.title = that.data.title;
-    mystory.timestamp=datt.getTime();
-    mystory.authorId=wx.getStorageSync('customer').id;
-    mystory.status="1";
+    mystory.timestamp = datt.getTime();
+    mystory.authorId = wx.getStorageSync('customer').id;
+    mystory.status = "1";
     mystory.toWho = that.data.toWho === "" ? "everyone" : that.data.toWho;
     console.log(mystory)
-    if(mystory.title===""||mystory.content===""){
+    if (mystory.title === "" || mystory.content === "") {
       wx.showToast({
         title: '标题或内容为空',
-        icon:"loading",
-        duration:2000
+        icon: "loading",
+        duration: 2000
       })
       return;
     }
@@ -206,14 +311,14 @@ formatNumber:function (n) {
       success: function (res) {
         wx.showToast({
           title: '成功',
-          duration:2200,
-          success:function(){
+          duration: 2200,
+          success: function () {
             wx.reLaunch({
               url: '/pages/storydetail/storydetail',
             })
           }
         })
-      
+
       }
     });
   },

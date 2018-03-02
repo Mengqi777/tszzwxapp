@@ -2,7 +2,13 @@
 <view class="page">
     <view class="page__bd">
         <view class="weui-article" >
-            <view class="weui-article__h1">关于小程序</view>
+            <view class="weui-article__h1" style='text-align:center'>关于小程序</view>
+             <view class="weui-article__p" style='text-align:center' bindlongpress='saveqr'>
+               <image class="weui-article__img" src="/images/tszzqr.jpg" mode="aspectFit" style="height: 280px" />
+             </view>
+             <view class="weui-article__p" style='text-align:center'>
+                    长按图片保存后分享到朋友圈
+                    </view>
             <view class="weui-article__section">
                 <view class="weui-article__title">作者：孟琦</view>
                 <view class="weui-article__section">

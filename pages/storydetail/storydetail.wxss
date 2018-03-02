@@ -16,5 +16,16 @@ page{
   font-size:15px;color:#009966;
 }
 
+.inlinestyle{
+     padding-left:50px;
+  padding-right:50px;
+}
+
+.innerimg{
+  width: 25px;
+  height: 25px;
+  vertical-align:middle;
+}
+
 
 
