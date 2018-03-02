@@ -11,7 +11,7 @@
   </view>
   <view class="page__bd">
     <view class="weui-article">
-      <view class="weui-article__p" style="color:green;font-size:20px;">
+      <view class="weui-article__p" style="color:green;font-size:17px;font-family: 'Helvetica Neue', Helvetica, Arial, Sans-serif;">
         <template is="wxParse" data="{{wxParseData:showcontent.nodes}}" />
       </view>
     </view>
