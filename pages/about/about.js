@@ -33,31 +33,29 @@ Page({
       }
     });
   },
-  saveqr:function(){
+
+
+  saveqr: function () {
     var that = this;
-    wx.saveImageToPhotosAlbum({
-      filePath: '/images/tszzqr.jpg',
+    wx.downloadFile({
+      url: server+ "/images/tszzqr.jpg",
       success: function (res) {
         console.log(res)
+        wx.saveImageToPhotosAlbum({
+          filePath: res.tempFilePath,
+          success: function (res) {
+            console.log(res)
+          },
+          fail: function (res) {
+            console.log(res)
+            console.log('fail')
+          }
+        })
       },
-      fail: function (res) {
-        console.log(res)
+      fail: function () {
         console.log('fail')
       }
     })
-    // wx.downloadFile({
-    //   url: '/images/tszzqr.jpg',
-    //   success: function (res) {
-    //     wx.saveImageToPhotosAlbum({
-    //       filePath: res.tempFilePath,
-    //       success: function (res) {
-    //         console.log(res)
-    //       },
-    //       fail: function (res) {
-    //         console.log(res)
-    //         console.log('fail')
-    //       }
-    //     })}})
   },
   /**
    * 生命周期函数--监听页面初次渲染完成
