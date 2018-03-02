@@ -67,13 +67,16 @@ Page({
     var that = this;
     var customer = wx.getStorageSync('customer');
     var status = 0;
+    console.log(story)
     var commitorinfo = customer.nickName + "-commit-" + customer.id;
+    console.log(commitorinfo)
     if (that.commitexist(commitorinfo, story.likeList)) {
       status = 1;
     }
     if (that.commitexist(commitorinfo, story.dislikeList)) {
       status = -1;
     }
+    
     that.setData({
       like: status === 1,
       dislike: status === -1,
@@ -81,6 +84,7 @@ Page({
       likenumber: story.likeList.length,
       dislikenumber: story.dislikeList.length
     })
+    console.log(that.data.like, that.data.dislike, that.data.uncommit)
   },
   dislikeadd: function () {
     var that = this;
@@ -99,14 +103,15 @@ Page({
       success: function (res) {
         var story = that.data.storylist[that.data.storyindex];
         story.dislike=story.dislike+1;
-        story.dislikeList.push(map);
+        story.dislikeList.push(map.nickName + "-commit-" + map.userId);
         var sl = that.data.storylist;
         sl[that.data.storyindex] = story;
         that.setData({
           like: false,
           dislike: true,
           uncommit: false,
-          dislikenumber: story.dislike 
+          dislikenumber: story.dislike,
+          story: story
         })
       }
     });
@@ -134,7 +139,7 @@ Page({
         if (story.like!==undefined)
         story.like = story.like + 1;
         else story.like=1;
-        story.likeList.push(map);
+        story.likeList.push(map.nickName+"-commit-"+map.userId);
         var sl = that.data.storylist;
         sl[that.data.storyindex]=story;
         that.setData({
@@ -142,7 +147,8 @@ Page({
           dislike: false,
           uncommit: false,
           likenumber: story.like,
-          storylist: sl
+          storylist: sl,
+          story:story
         })
       }
     });
@@ -276,6 +282,7 @@ Page({
       story: storylist[index],
       nothasnext: false
     })
+    console.log(storylist[index])
     that.setshowcommit(storylist[index]);
     WxParse.wxParse('showcontent', 'md', storylist[index].content, that, 5);
   },
