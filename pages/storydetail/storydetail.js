@@ -41,7 +41,9 @@ Page({
 
   getwastedays: function (tody) {
     var mills = tody.getTime();
-    var res = (mills - 1514736000000) / (365 * 24 * 60 * 60 * 1000);
+    var origindatt = new Date(tody.getFullYear() + "-01-01 00:00:00")
+    // var res = (mills - 1514736000000) / (365 * 24 * 60 * 60 * 1000);
+    var res = (mills - origindatt.getTime()) / (365 * 24 * 60 * 60 * 1000);
     var arr = [];
     arr.push(parseFloat(res.toFixed(2)))
     arr.push(parseFloat(res.toFixed(4)))
@@ -161,7 +163,7 @@ Page({
     if (customer === '') return;
     var datt = new Date();
     var that = this;
-    var datetime = datt.getFullYear() + "年" + that.formatNumber((datt.getMonth() + 1)) + "月" + that.formatNumber(datt.getDay()) + "日"
+    var datetime = datt.getFullYear() + "年" + that.formatNumber((datt.getMonth() + 1)) + "月" + that.formatNumber(datt.getDate()) + "日"
     var arr = that.getwastedays(datt);
     console.log(arr)
     that.setData({
@@ -176,7 +178,7 @@ Page({
         that.setData({
           userInfo: userInfo
         })
-        if (userInfo.nickName === 'Ashley' || customer.openId === 'o7lsb0X22plQE1Ughb8QCq_lrRAw' || customer.openId ==='o7lsb0RtxdxNJOwyItj3mi6qo_QY') {
+        if (userInfo.nickName === 'Ashley' || customer.openId === 'o7lsb0X22plQE1Ughb8QCq_lrRAw' || customer.openId === 'o7lsb0RtxdxNJOwyItj3mi6qo_QY' || customer.openId ==='o7lsb0QIomrzbz_0jOTJgMsK4Rfc') {
           that.setData({
             showgame: true
           })
@@ -264,6 +266,10 @@ Page({
     })
     that.setshowcommit(storylist[index]);
     WxParse.wxParse('showcontent', 'md', storylist[index].content, that, 5);
+    wx.pageScrollTo({
+      scrollTop: 0,
+      duration: 300
+    })
   },
   prestory: function () {
 
@@ -285,6 +291,10 @@ Page({
     console.log(storylist[index])
     that.setshowcommit(storylist[index]);
     WxParse.wxParse('showcontent', 'md', storylist[index].content, that, 5);
+    wx.pageScrollTo({
+      scrollTop: 0,
+      duration: 300
+    })
   },
   savestory: function () {
     var datt = new Date();

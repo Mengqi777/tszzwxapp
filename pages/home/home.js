@@ -1,7 +1,7 @@
 // pages/home/home.js
 var server = "https://api.mengqipoet.cn"
 // var server = "http://localhost:8080"
-const appIns=getApp()
+const appIns = getApp()
 var util = require("../../utils/util");
 Page({
 
@@ -21,7 +21,7 @@ Page({
     operationHidden: true,
     status: "在家中",
     statusCode: 0,
-    selected:{}
+    selected: {}
 
   },
   touchcat: function () {
@@ -29,37 +29,37 @@ Page({
       url: '/pages/luckycat/luckycat',
     })
   },
-  viewtlogs:function(){
+  viewtlogs: function () {
     wx.navigateTo({
       url: '/pages/tlogs/tlogs',
     })
   },
-  viewtreasure:function(){
+  viewtreasure: function () {
     wx.navigateTo({
       url: '/pages/treasure/treasure',
     })
   },
   gobacktravel: function () {
     var that = this;
-    var fishnumber=that.data.fishnumber;
-    var starnumber=that.data.starnumber;
-    var foodnumber=that.data.foodnumber;
-    if(fishnumber<=0) {
+    var fishnumber = that.data.fishnumber;
+    var starnumber = that.data.starnumber;
+    var foodnumber = that.data.foodnumber;
+    if (fishnumber <= 0) {
       wx.showToast({
         title: '小鱼干不足',
-        icon:"loading",
+        icon: "loading",
         duration: 2000
       })
       return;
     }
-    var travel={}
-    travel.fishNumber=fishnumber;
-    travel.starNumber=starnumber;
-    travel.foodNumber=foodnumber;
+    var travel = {}
+    travel.fishNumber = fishnumber;
+    travel.starNumber = starnumber;
+    travel.foodNumber = foodnumber;
     travel.petId = that.data.selected.id;
-    travel.userId=wx.getStorageSync('customer').id
+    travel.userId = wx.getStorageSync('customer').id
     travel.petName = that.data.selected.name;
-    
+
     wx.request({
       method: "POST",
       url: server + "/travel/add",
@@ -80,13 +80,13 @@ Page({
         wx.setStorageSync('foodnumber', 0);
         wx.setStorageSync('travel', res.data)
         wx.reLaunch({
-          url: '/pages/travel/travel?id='+res.data.id,
+          url: '/pages/travel/travel?id=' + res.data.id,
         })
       }
     })
 
   },
-  viewtravel:function(){
+  viewtravel: function () {
     wx.reLaunch({
       url: '/pages/travel/travel?id=' + wx.getStorageSync('px').travelingId,
     })
@@ -100,7 +100,7 @@ Page({
   },
   showpxop: function () {
     this.setData({
-      selected:this.data.px,
+      selected: this.data.px,
       operationHidden: !this.data.operationHidden
     })
   },
@@ -131,7 +131,7 @@ Page({
         console.log(res.data);
       }
     });
-    if(customer===""){
+    if (customer === "") {
       // 登录
       wx.login({
         success: res => {
@@ -206,7 +206,7 @@ Page({
                             starnumber: wx.getStorageSync('starnumber') || 0,
                             foodnumber: wx.getStorageSync('foodnumber') || 0,
                           })
-                          
+
                         }
                       }
 
@@ -226,62 +226,64 @@ Page({
           }
         }
       })
-    }else{
-
-  
-    wx.request({
-      method: "GET",
-      url: server + "/customer/get",
-      data: { id: customer.id },
-      header: {
-        'content-type': 'application/json'
-      },
-      success: function (res) {
-        console.log(res.data);
-        wx.setStorageSync('customer', res.data)
-        customer = wx.getStorageSync('customer');
-        var pets = customer.pets;
-        for (var i = 0; i < pets.length; i++) {
-          if (pets[i].type == 0) {
-            that.setData({
-              px: pets[i],
-              pxname: pets[i].name
+    } else {
+      wx.request({
+        method: "GET",
+        url: server + "/customer/get",
+        data: { id: customer.id },
+        header: {
+          'content-type': 'application/json'
+        },
+        success: function (res) {
+          console.log(res.data);
+          customer = res.data;
+          wx.setStorageSync('customer', customer)
+          var pets = customer.pets;
+          if(customer.pets==null||customer.pets.length===0){
+            wx.reLaunch({
+              url: '/pages/index/index',
             })
-            wx.setStorageSync('px', pets[i])
-            var status = "";
-            if (pets[i].statusCode == 0) { status = "在家中" }
-            if (pets[i].statusCode == 1) { status = "在过去" }
-            if (pets[i].statusCode == 2) { status = "在路上" }
-            that.setData({
-              statusCode: pets[i].statusCode,
-              status: status
-            })
-          } else {
-            that.setData({
-              dog: pets[i],
-              dogname: pets[i].name
-            })
-            wx.setStorageSync('dog', pets[i])
           }
-        }
-        that.setData({
-          userInfo: customer.userInfo,
-          fishnumber: wx.getStorageSync('fishnumber') || 0,
-          starnumber: wx.getStorageSync('starnumber') || 0,
-          foodnumber: wx.getStorageSync('foodnumber') || 0,
-        })
-      }
-    })
-    }
 
-    
+          for (var i = 0; i < pets.length; i++) {
+            if (pets[i].type == 0) {
+              that.setData({
+                px: pets[i],
+                pxname: pets[i].name
+              })
+              wx.setStorageSync('px', pets[i])
+              var status = "";
+              if (pets[i].statusCode == 0) { status = "在家中" }
+              if (pets[i].statusCode == 1) { status = "在过去" }
+              if (pets[i].statusCode == 2) { status = "在路上" }
+              that.setData({
+                statusCode: pets[i].statusCode,
+                status: status
+              })
+            } else {
+              that.setData({
+                dog: pets[i],
+                dogname: pets[i].name
+              })
+              wx.setStorageSync('dog', pets[i])
+            }
+          }
+          that.setData({
+            userInfo: customer.userInfo,
+            fishnumber: wx.getStorageSync('fishnumber') || 0,
+            starnumber: wx.getStorageSync('starnumber') || 0,
+            foodnumber: wx.getStorageSync('foodnumber') || 0,
+          })
+        }
+      })
+    }
   },
 
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
   onReady: function () {
- 
+
   },
 
   /**
@@ -317,7 +319,7 @@ Page({
    * 生命周期函数--监听页面隐藏
    */
   onHide: function () {
-  
+
   },
 
   /**
