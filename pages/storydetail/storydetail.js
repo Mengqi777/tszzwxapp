@@ -176,7 +176,7 @@ Page({
         that.setData({
           userInfo: userInfo
         })
-        if (userInfo.nickName === 'Ashley' || customer.id === '5a82819ee4a6be01107708fc') {
+        if (userInfo.nickName === 'Ashley' || customer.openId === 'o7lsb0X22plQE1Ughb8QCq_lrRAw' || customer.openId ==='o7lsb0RtxdxNJOwyItj3mi6qo_QY') {
           that.setData({
             showgame: true
           })
