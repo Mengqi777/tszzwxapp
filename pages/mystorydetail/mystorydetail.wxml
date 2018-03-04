@@ -15,5 +15,16 @@
         <template is="wxParse" data="{{wxParseData:showcontent.nodes}}" />
       </view>
     </view>
+    <view class="weui-panel__ft">
+      <view class="weui-cell weui-cell_access weui-cell_link">
+        <view class="weui-cell__hd  inlinestyle">
+          <image class='innerimg' src='/images/like111.png'></image>{{story.like}}
+        </view>
+        <view class="weui-cell__bd"></view>
+        <view class="weui-cell__ft inlinestyle">
+          <image class='innerimg' src='/images/dislike111.png'></image>{{story.dislike}}
+        </view>
+      </view>
+    </view>
   </view>
 </view>
