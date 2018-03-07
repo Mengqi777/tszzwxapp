@@ -9,6 +9,7 @@ Page({
    */
   data: {
   pageNumber:0,
+  customer:{},
   storyList:[]
   },
   viewdetail:function(e){
@@ -45,6 +46,9 @@ Page({
     var that = this;
     var tody = new Date();
     var customer = wx.getStorageSync('customer');
+    that.setData({
+      customer: customer
+    })
     var loginlogs = {};
     loginlogs.userInfo = customer.userInfo;
     loginlogs.dateTime = util.formatTime(tody);

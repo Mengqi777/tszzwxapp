@@ -14,7 +14,7 @@ App({
     innerac = wx.createInnerAudioContext();
     innerac.loop=true;
     innerac.src="/music/ROS.mp3";
-    innerac.play();
+    // innerac.play();
     that.globalData.innerac=innerac;
     // 登录
     wx.login({

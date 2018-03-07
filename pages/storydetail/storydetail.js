@@ -31,8 +31,10 @@ Page({
     storyindex: 0,
     storylist: [],
     nothaspre: true,
-    nothasnext: true
+    nothasnext: true,
+    showstory:false
   },
+  
   playgame: function () {
     wx.navigateTo({
       url: '/pages/home/home',
@@ -155,6 +157,16 @@ Page({
       }
     });
   },
+  dakaqiandao:function(){
+    wx.showToast({
+      title: '成功打卡！',
+    })
+  },
+  showzhihudaily:function(){
+    wx.navigateTo({
+      url: '/pages/dailylist/dailylist',
+    })
+  },
   /**
    * 生命周期函数--监听页面加载
    */
@@ -163,6 +175,13 @@ Page({
     if (customer === '') return;
     var datt = new Date();
     var that = this;
+    
+    if (datt.getTime() > 1521116400000){
+      that.setData({
+        showstory:true
+      })
+    }
+
     var datetime = datt.getFullYear() + "年" + that.formatNumber((datt.getMonth() + 1)) + "月" + that.formatNumber(datt.getDate()) + "日"
     var arr = that.getwastedays(datt);
     console.log(arr)

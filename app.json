@@ -30,19 +30,14 @@
         "selectedIconPath": "images/111.png",
         "iconPath": "images/11.png",
         "pagePath": "pages/storydetail/storydetail",
-        "text": "story"
+        "text": ""
       },
-      {
-        "selectedIconPath": "images/221.png",
-        "iconPath": "images/22.png",
-        "pagePath": "pages/dailylist/dailylist",
-        "text": "zhihudaily"
-      },
+     
       {
         "selectedIconPath": "images/331.png",
         "iconPath": "images/33.png",
         "pagePath": "pages/mystory/mystory",
-        "text": "my"
+        "text": ""
       }
     ]
   }

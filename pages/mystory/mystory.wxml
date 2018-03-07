@@ -1,36 +1,43 @@
 <!--pages/mystory/mystory.wxml-->
 <view class='page'>
-
+  <view style='text-align:center;'>
+    <image style='width:70px;height:70px;margin-top:50px;' src='{{customer.userInfo.avatarUrl}}'></image>
+  </view>
+  <view style='text-align:center'>
+    <text style="color:green">{{customer.userInfo.nickName}}</text>
+  </view>
   <view>
     <view class="page__hd">
       <view class="page__bd">
-        <view  class="weui-panel weui-panel_access" style='background-color:#c4e2d8'>
+        <view class="weui-panel weui-panel_access" style='background-color:#c4e2d8'>
           <view class="weui-panel__bd" wx:for="{{storyList}}" wx:for-item="items">
             <view class="weui-media-box weui-media-box_text">
               <view class="weui-media-box__title weui-media-box__title_in-text" style='color:green' bindtap='viewdetail' data-sid='{{items.id}}'>{{items.title}}</view>
-              <view class="weui-media-box__desc" >时间：{{items.dateTime}}<span style="color:red;margin-left:180px;" bindtap="delmystory" data-sindex="{{index}}">删除</span></view>
+              <view class="weui-media-box__desc">时间：{{items.dateTime}}
+                <span style="color:red;margin-left:180px;" bindtap="delmystory" data-sindex="{{index}}">删除</span>
+              </view>
             </view>
             <view class="weui-media-box weui-media-box_text">
               <view class="weui-media-box__title weui-media-box__title_in-text" style='color:green' bindtap='viewdetail' data-sid='{{items.id}}'>写给：{{items.toWho}}</view>
               <view class="weui-media-box__desc" bindtap='viewdetail' data-sid='{{items.id}}'>{{items.content}}</view>
             </view>
-             <view class="weui-cell" style='background-color:#d4f2d8;'></view>
+            <view class="weui-cell" style='background-color:#d4f2d8;'></view>
           </view>
         </view>
       </view>
     </view>
   </view>
-  <view class="weui-cell" style='color:green;margin-bottom:100px;' bindtap='getmore'>
+  <view class="weui-cell" style='color:green;margin-bottom:100px;' wx:if="{{storyList.length!==0}}" bindtap='getmore'>
     <view class="weui-cell__hd">查看更多</view>
     <view class="weui-cell__ft weui-cell__ft_in-access"></view>
   </view>
 
-   <view class="page__bd page__bd_spacing">
-        <view class="weui-footer weui-footer_fixed-bottom">
-            <view class="weui-footer__links">
-                <navigator url="/pages/about/about" class="weui-footer__link">途上走之</navigator>
-            </view>
-            <view class="weui-footer__text">Copyright © 2017-2018</view>
-        </view>
+  <view class="page__bd page__bd_spacing">
+    <view class="weui-footer weui-footer_fixed-bottom">
+      <view class="weui-footer__links">
+        <navigator url="/pages/about/about" class="weui-footer__link">途上走之</navigator>
+      </view>
+      <view class="weui-footer__text">Copyright © 2017-2018</view>
     </view>
+  </view>
 </view>
