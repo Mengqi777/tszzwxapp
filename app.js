@@ -14,7 +14,7 @@ App({
     innerac = wx.createInnerAudioContext();
     innerac.loop=true;
     innerac.src="/music/ROS.mp3";
-    // innerac.play();
+    innerac.play();
     that.globalData.innerac=innerac;
     // 登录
     wx.login({
@@ -53,9 +53,9 @@ App({
                           }
                         }
                         wx.setStorageSync('status', 'exist')
-                        wx.reLaunch({
-                          url: '/pages/storydetail/storydetail',
-                        })
+                        // wx.reLaunch({
+                        //   url: '/pages/storydetail/storydetail',
+                        // })
                         // if (customer.pets == null || customer.pets.length==0){
                         //   wx.reLaunch({
                         //     url: '/pages/index/index',
@@ -77,8 +77,6 @@ App({
               
             }
           })
-
-       
         }
       }
     })
