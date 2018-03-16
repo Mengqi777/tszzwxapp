@@ -43,6 +43,7 @@ App({
                       success: function (res) {
                         var customer=res.data.customer;
                         wx.setStorageSync('customer', customer);
+                        
                         var pets=customer.pets||[];
                         for(var i=0;i<pets.length;i++){
                           if(pets[i].type==0){
@@ -53,9 +54,9 @@ App({
                           }
                         }
                         wx.setStorageSync('status', 'exist')
-                        // wx.reLaunch({
-                        //   url: '/pages/storydetail/storydetail',
-                        // })
+                        wx.reLaunch({
+                          url: '/pages/storydetail/storydetail',
+                        })
                         // if (customer.pets == null || customer.pets.length==0){
                         //   wx.reLaunch({
                         //     url: '/pages/index/index',
