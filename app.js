@@ -2,7 +2,7 @@
 var server="https://api.mengqipoet.cn"
 // var server = "http://localhost:8080"
 // const innerAudioContext = wx.createInnerAudioContext()
-
+var util = require("/utils/util");
 App({
   onLaunch: function () {
     // 展示本地存储能力
@@ -54,6 +54,23 @@ App({
                           }
                         }
                         wx.setStorageSync('status', 'exist')
+                        var datt = new Date();
+                        var loginlogs = {};
+                        loginlogs.userInfo = customer.userInfo;
+                        loginlogs.dateTime = util.formatTime(datt);
+                        loginlogs.page = "/pages/storydetail/storydetail";
+
+                        wx.request({
+                          url: server + '/loginlogs/add',
+                          method: 'POST',
+                          data: loginlogs
+                          , header: {
+                            'content-type': 'application/json'
+                          },
+                          success: function (res) {
+                            console.log(res.data);
+                          }
+                        });
                         wx.reLaunch({
                           url: '/pages/storydetail/storydetail',
                         })

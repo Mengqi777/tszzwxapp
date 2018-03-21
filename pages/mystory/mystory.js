@@ -52,7 +52,7 @@ Page({
     var loginlogs = {};
     loginlogs.userInfo = customer.userInfo;
     loginlogs.dateTime = util.formatTime(tody);
-    loginlogs.page = "/pages/dailylist/dailylist";
+    loginlogs.page = "/pages/mystory/mystory";
     wx.request({
       url: server + '/loginlogs/add',
       method: 'POST',

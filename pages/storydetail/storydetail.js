@@ -197,22 +197,22 @@ Page({
             showgame: true
           })
         }
-        var loginlogs = {};
-        loginlogs.userInfo = res.userInfo;
-        loginlogs.dateTime = util.formatTime(datt);
-        loginlogs.page = "/pages/storydetail/storydetail";
+        // var loginlogs = {};
+        // loginlogs.userInfo = res.userInfo;
+        // loginlogs.dateTime = util.formatTime(datt);
+        // loginlogs.page = "/pages/storydetail/storydetail";
 
-        wx.request({
-          url: server + '/loginlogs/add',
-          method: 'POST',
-          data: loginlogs
-          , header: {
-            'content-type': 'application/json'
-          },
-          success: function (res) {
-            console.log(res.data);
-          }
-        });
+        // wx.request({
+        //   url: server + '/loginlogs/add',
+        //   method: 'POST',
+        //   data: loginlogs
+        //   , header: {
+        //     'content-type': 'application/json'
+        //   },
+        //   success: function (res) {
+        //     console.log(res.data);
+        //   }
+        // });
 
 
         wx.request({
