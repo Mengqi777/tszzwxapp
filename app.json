@@ -13,7 +13,8 @@
     "pages/dailylist/dailylist",
     "pages/mystory/mystory",
     "pages/about/about",
-    "pages/mystorydetail/mystorydetail"
+    "pages/mystorydetail/mystorydetail",
+    "pages/auth/auth"
   ],
   "window": {
     "backgroundTextStyle": "black",

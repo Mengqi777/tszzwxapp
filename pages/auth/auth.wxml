@@ -1,0 +1,4 @@
+<!--pages/auth/auth.wxml-->
+<view style='margin-top:50%;'>
+<button style="width:75%;" class="weui-btn" type="primary" open-type="getUserInfo" lang="zh_CN" bindgetuserinfo="onGotUserInfo">点击授权获取用户信息</button>
+</view>

@@ -32,16 +32,18 @@ Page({
     storylist: [],
     nothaspre: true,
     nothasnext: true
- 
+
   },
-  
-  playgame: function () {
+  testcallback: function() {
+    console.log("欧克")
+  },
+  playgame: function() {
     wx.navigateTo({
       url: '/pages/home/home',
     })
   },
 
-  getwastedays: function (tody) {
+  getwastedays: function(tody) {
     var mills = tody.getTime();
     var origindatt = new Date(tody.getFullYear() + "-01-01 00:00:00")
     // var res = (mills - 1514736000000) / (365 * 24 * 60 * 60 * 1000);
@@ -51,12 +53,12 @@ Page({
     arr.push(parseFloat(res.toFixed(4)))
     return arr;
   },
-  formatNumber: function (n) {
+  formatNumber: function(n) {
     n = n.toString()
     return n[1] ? n : '0' + n
   },
 
-  commitexist: function (commitorinfo, commitlist) {
+  commitexist: function(commitorinfo, commitlist) {
     var flag = false;
     for (var i = 0; i < commitlist.length; i++) {
       if (commitlist[i] === commitorinfo) {
@@ -67,7 +69,7 @@ Page({
     return flag;
   },
 
-  setshowcommit: function (story) {
+  setshowcommit: function(story) {
     var that = this;
     var customer = wx.getStorageSync('customer');
     var status = 0;
@@ -80,7 +82,7 @@ Page({
     if (that.commitexist(commitorinfo, story.dislikeList)) {
       status = -1;
     }
-    
+
     that.setData({
       like: status === 1,
       dislike: status === -1,
@@ -90,7 +92,7 @@ Page({
     })
     console.log(that.data.like, that.data.dislike, that.data.uncommit)
   },
-  dislikeadd: function () {
+  dislikeadd: function() {
     var that = this;
     var map = {};
     map.userId = wx.getStorageSync('customer').id;
@@ -100,13 +102,13 @@ Page({
     wx.request({
       url: server + '/sleepstory/dislike',
       method: 'POST',
-      data: map
-      , header: {
+      data: map,
+      header: {
         'content-type': 'application/json'
       },
-      success: function (res) {
+      success: function(res) {
         var story = that.data.storylist[that.data.storyindex];
-        story.dislike=story.dislike+1;
+        story.dislike = story.dislike + 1;
         story.dislikeList.push(map.nickName + "-commit-" + map.userId);
         var sl = that.data.storylist;
         sl[that.data.storyindex] = story;
@@ -120,7 +122,7 @@ Page({
       }
     });
   },
-  likeadd: function () {
+  likeadd: function() {
     var that = this;
     var map = {};
 
@@ -131,38 +133,38 @@ Page({
     wx.request({
       url: server + '/sleepstory/like',
       method: 'POST',
-      data: map
-      , header: {
+      data: map,
+      header: {
         'content-type': 'application/json'
       },
-      success: function (res) {
+      success: function(res) {
         console.log(that.data.storylist)
         console.log(that.data.storyindex)
         var story = that.data.storylist[that.data.storyindex];
         console.log(story)
-        if (story.like!==undefined)
-        story.like = story.like + 1;
-        else story.like=1;
-        story.likeList.push(map.nickName+"-commit-"+map.userId);
+        if (story.like !== undefined)
+          story.like = story.like + 1;
+        else story.like = 1;
+        story.likeList.push(map.nickName + "-commit-" + map.userId);
         var sl = that.data.storylist;
-        sl[that.data.storyindex]=story;
+        sl[that.data.storyindex] = story;
         that.setData({
           like: true,
           dislike: false,
           uncommit: false,
           likenumber: story.like,
           storylist: sl,
-          story:story
+          story: story
         })
       }
     });
   },
-  dakaqiandao:function(){
+  dakaqiandao: function() {
     wx.showToast({
       title: '成功打卡！',
     })
   },
-  showzhihudaily:function(){
+  showzhihudaily: function() {
     wx.navigateTo({
       url: '/pages/dailylist/dailylist',
     })
@@ -170,12 +172,12 @@ Page({
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad: function (options) {
+  onLoad: function(options) {
     var customer = wx.getStorageSync('customer');
     if (customer === '') return;
     var datt = new Date();
     var that = this;
-    
+
 
     var datetime = datt.getFullYear() + "年" + that.formatNumber((datt.getMonth() + 1)) + "月" + that.formatNumber(datt.getDate()) + "日"
     var arr = that.getwastedays(datt);
@@ -185,83 +187,68 @@ Page({
       progress: parseInt((arr[0] * 100).toFixed(0)),
       progresspercent: (arr[1] * 100).toFixed(2)
     })
-    var userInfo = {}
-    wx.getUserInfo({
-      success: res => {
-        userInfo = res.userInfo;
+
+    app.getCustomerInfo().then(function(res) {
+      console.log(res);
+      let userInfo = res.data.customer.userInfo;
+      let customer = res.data.customer
+      that.setData({
+        userInfo:userInfo,
+        customer:customer
+      })
+      if (userInfo.nickName === 'Ashley' || customer.openId === 'o7lsb0X22plQE1Ughb8QCq_lrRAw' || customer.openId === 'o7lsb0RtxdxNJOwyItj3mi6qo_QY' || customer.openId === 'o7lsb0QIomrzbz_0jOTJgMsK4Rfc') {
         that.setData({
-          userInfo: userInfo
+          showgame: true
         })
-        if (userInfo.nickName === 'Ashley' || customer.openId === 'o7lsb0X22plQE1Ughb8QCq_lrRAw' || customer.openId === 'o7lsb0RtxdxNJOwyItj3mi6qo_QY' || customer.openId ==='o7lsb0QIomrzbz_0jOTJgMsK4Rfc') {
-          that.setData({
-            showgame: true
-          })
-        }
-        // var loginlogs = {};
-        // loginlogs.userInfo = res.userInfo;
-        // loginlogs.dateTime = util.formatTime(datt);
-        // loginlogs.page = "/pages/storydetail/storydetail";
-
-        // wx.request({
-        //   url: server + '/loginlogs/add',
-        //   method: 'POST',
-        //   data: loginlogs
-        //   , header: {
-        //     'content-type': 'application/json'
-        //   },
-        //   success: function (res) {
-        //     console.log(res.data);
-        //   }
-        // });
-
-
-        wx.request({
-          url: server + '/sleepstory/getbytimestamp',
-          method: 'GET',
-          data: {
-            timestamp: datt.getTime(),
-            toWho: userInfo.nickName
-          }, header: {
-            'content-type': 'application/json'
-          },
-          success: function (res) {
-            console.log(res.data)
-            if (res.data === undefined || res.data.length === 0 || res.data === null) return;
-            if (res.data.length > 1) {
-              that.setData({
-                nothasnext: false
-              })
-            }
-
-            that.setData({
-              storylist: res.data,
-              story: res.data[0],
-              showcontent: res.data[0].content,
-              showstorycontent: true
-            })
-            that.setshowcommit(res.data[0]);
-            WxParse.wxParse('showcontent', 'md', that.data.showcontent, that, 5);
-          }
-        });
       }
+      wx.request({
+        url: server + '/sleepstory/getbytimestamp',
+        method: 'GET',
+        data: {
+          timestamp: datt.getTime(),
+          toWho: userInfo.nickName
+        },
+        header: {
+          'content-type': 'application/json'
+        },
+        success: function(res) {
+          console.log(res.data)
+          if (res.data === undefined || res.data.length === 0 || res.data === null) return;
+          if (res.data.length > 1) {
+            that.setData({
+              nothasnext: false
+            })
+          }
+          that.setData({
+            storylist: res.data,
+            story: res.data[0],
+            showcontent: res.data[0].content,
+            showstorycontent: true
+          })
+          that.setshowcommit(res.data[0]);
+          WxParse.wxParse('showcontent', 'md', that.data.showcontent, that, 5);
+        }
+      });
+    }, function(res) {
+      console.log(res);
     });
   },
-  bindtitle: function (e) {
+  bindtitle: function(e) {
     this.setData({
       title: e.detail.value
     })
   },
-  bindwho: function (e) {
+  bindwho: function(e) {
     this.setData({
       toWho: e.detail.value
     })
   },
-  bindcontent: function (e) {
+  bindcontent: function(e) {
     this.setData({
       content: e.detail.value
     })
   },
-  nextstory: function () {
+  nextstory: function() {
 
     var that = this;
     var index = that.data.storyindex;
@@ -285,7 +272,7 @@ Page({
       duration: 300
     })
   },
-  prestory: function () {
+  prestory: function() {
 
     var that = this;
     var index = that.data.storyindex;
@@ -310,7 +297,7 @@ Page({
       duration: 300
     })
   },
-  savestory: function () {
+  savestory: function() {
     var datt = new Date();
     var dt = util.formatTime(datt);
     var mystory = {}
@@ -339,13 +326,15 @@ Page({
       header: {
         'content-type': 'application/json'
       },
-      success: function (res) {
+      success: function(res) {
         wx.showToast({
           title: '成功',
           duration: 2200,
-          success: function () {
-            wx.reLaunch({
-              url: '/pages/storydetail/storydetail',
+          success: function() {
+            that.setData({
+              content: "",
+              title: "",
+              towho: ""
             })
           }
         })
@@ -353,7 +342,7 @@ Page({
       }
     });
   },
-  showwriteone: function () {
+  showwriteone: function() {
     var that = this;
     that.setData({
       hadshowwt: that.data.hadshowwt ? false : true
@@ -362,49 +351,49 @@ Page({
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
-  onReady: function () {
+  onReady: function() {
 
   },
 
   /**
    * 生命周期函数--监听页面显示
    */
-  onShow: function () {
+  onShow: function() {
 
   },
 
   /**
    * 生命周期函数--监听页面隐藏
    */
-  onHide: function () {
+  onHide: function() {
 
   },
 
   /**
    * 生命周期函数--监听页面卸载
    */
-  onUnload: function () {
+  onUnload: function() {
 
   },
 
   /**
    * 页面相关事件处理函数--监听用户下拉动作
    */
-  onPullDownRefresh: function () {
+  onPullDownRefresh: function() {
 
   },
 
   /**
    * 页面上拉触底事件的处理函数
    */
-  onReachBottom: function () {
+  onReachBottom: function() {
 
   },
 
   /**
    * 用户点击右上角分享
    */
-  onShareAppMessage: function () {
+  onShareAppMessage: function() {
 
   }
 })
