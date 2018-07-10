@@ -25,7 +25,7 @@ Page({
    var that=this;
    that.setData({
      showmodal: false,
-     preuri: server + that.data.tlogs[findex].treasures[sindex].imgUri,
+     preuri: server +'/static'+ that.data.tlogs[findex].treasures[sindex].imgUri,
      tex: that.data.tlogs[findex].treasures[sindex].typeName
    })
   },

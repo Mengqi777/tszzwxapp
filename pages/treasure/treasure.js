@@ -162,9 +162,9 @@ Page({
       for (var j = 0; j < temps.length; j++) {
         if (temps[j].title === titles[i]) {
           treasure.textlist.push(temps[j].text);
-          treasure.imgurilist.push(server + temps[j].imgUri);
-          treasure.audioUri = server+temps[j].audioUri;
-          treasure.videoUri = server+ temps[j].videoUri;
+          treasure.imgurilist.push(server + '/static'+temps[j].imgUri);
+          treasure.audioUri = server + '/static' +temps[j].audioUri;
+          treasure.videoUri = server + '/static' + temps[j].videoUri;
           treasure.typeCode = temps[j].type;
         }
       }
